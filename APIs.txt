@@ -1,0 +1,3 @@
+https://www.igdb.com/api
+https://www.goodreads.com/api/
+https://www.themoviedb.org/documentation/api
