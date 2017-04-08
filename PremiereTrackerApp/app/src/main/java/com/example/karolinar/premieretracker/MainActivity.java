@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -16,6 +18,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         DatabaseManager dbManager = new DatabaseManager(this);
        // dbManager.AddProducsTypes();
+       // Product p = new Product();
+       // p.Creator = "Ala";
+       // p.Description = "fmmvfmv";
+       // p.Name = "Cos";
+       // p.Premiere = new Date();
+       // p.ProductType = "Book";
+       // dbManager.AddProduct(p);
+       // dbManager.GetProducts();
+       // dbManager.RemoveProduct(1);
+       // dbManager.GetProducts();
 
         setContentView(R.layout.activity_first);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
