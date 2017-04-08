@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
        // dbManager.RemoveProduct(1);
        // dbManager.GetProducts();
 
-
         setContentView(R.layout.activity_first);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
