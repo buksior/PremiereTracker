@@ -35,6 +35,10 @@
             android:name=".DetailsActivity"
             android:label="@string/title_activity_details"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".ContactActivity"
+            android:label="ContactActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

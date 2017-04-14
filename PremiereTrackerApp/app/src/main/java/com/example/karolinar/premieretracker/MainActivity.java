@@ -43,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Intent myIntent = new Intent(this, AboutActivity.class);
-        startActivity(myIntent);
+        //Intent myIntent = new Intent(this, ContactActivity.class);
+        //startActivity(myIntent);
     }
 
     @Override

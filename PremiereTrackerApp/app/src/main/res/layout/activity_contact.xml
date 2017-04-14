@@ -6,6 +6,6 @@
     android:layout_height="match_parent"
     tools:context="com.example.karolinar.premieretracker.AboutActivity">
 
-    <include layout="@layout/content_about" />
+    <include layout="@layout/content_contact" />
 
 </android.support.design.widget.CoordinatorLayout>
