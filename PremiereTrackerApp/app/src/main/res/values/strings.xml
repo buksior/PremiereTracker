@@ -5,4 +5,16 @@
     <string name="title_activity_observed_list">ObservedListActivity</string>
     <string name="title_activity_about">AboutActivity</string>
     <string name="title_activity_details">DetailsActivity</string>
+    <string name="button">Button</string>
+    <string name="wyszukaj">Wyszukaj</string>
+    <string name="typeTitle">Wpisz tytuł</string>
+    <string name="category">Kategoria</string>
+    <string name="name">Nazwa</string>
+    <string name="fav">Fav</string>
+    <string-array name="content_types_array">
+        <item>Gry komputerowe</item>
+        <item>Książki</item>
+        <item>Filmy</item>
+    </string-array>
+
 </resources>
