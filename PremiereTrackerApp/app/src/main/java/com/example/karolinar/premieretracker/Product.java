@@ -8,12 +8,16 @@ import java.util.Date;
 
 public class Product {
 
+    public Product(){
+
+    }
+
     public Product(String title, Date premiereDate){
         this.title = title;
         this.premiereDate = premiereDate;
     }
 
-    private Date premiereDate;
+    protected Date premiereDate;
     private String title;
 
     public String getTitle() {
