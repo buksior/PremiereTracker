@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
     <TextView
         android:id="@+id/col1"
         android:layout_height="50dp"
@@ -17,10 +18,12 @@
         android:layout_width="100dp">
     </TextView>
     <ImageButton
+        android:id="@+id/liked"
         android:src="@android:drawable/star_big_off"
         android:background="@android:color/white"
         android:contentDescription="@string/fav"
         android:layout_width="50dp"
-        android:layout_height="50dp" />
-    <!--android:src="@android:drawable/star_big_off"-->
+        android:layout_height="50dp"
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
 </LinearLayout>

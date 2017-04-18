@@ -7,8 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -46,6 +48,18 @@ public class ProductsAdapter extends ArrayAdapter<Product> {
             holder = new ProductHolder();
             holder.title = (TextView)row.findViewById(R.id.col1);
             holder.date = (TextView)row.findViewById(R.id.col2);
+
+            final ImageButton im = (ImageButton)row.findViewById(R.id.liked);
+            im.setFocusable(false);
+            im.setFocusableInTouchMode(false);
+            final boolean selected = false;
+            im.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    im.setImageResource(android.R.drawable.star_big_on);
+                    //TODO database
+                }
+            });
 
             row.setTag(holder);
         }
