@@ -1,5 +1,6 @@
 package com.example.karolinar.premieretracker;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,11 +10,30 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.Date;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //BookService bookService = new BookService();
+        //bookService.GetBooksWhichContainTheTextInTitle("harry potter");
+        //List<Book> list = bookService.GetBooksByTitle("harry potter i kamień filozoficzny");
+        DatabaseManager dbManager = new DatabaseManager(this);
+       // dbManager.AddProducsTypes();
+       // Product p = new Product();
+       // p.Creator = "Ala";
+       // p.Description = "fmmvfmv";
+       // p.Name = "Cos";
+       // p.Premiere = new Date();
+       // p.ProductType = "Book";
+       // dbManager.AddProduct(p);
+       // dbManager.GetProducts();
+       // dbManager.RemoveProduct(1);
+       // dbManager.GetProducts();
+
         setContentView(R.layout.activity_first);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -26,6 +46,9 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        //Intent myIntent = new Intent(this, ContactActivity.class);
+        //startActivity(myIntent);
     }
 
     @Override

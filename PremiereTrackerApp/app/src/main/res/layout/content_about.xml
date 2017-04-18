@@ -8,4 +8,27 @@
     tools:context="com.example.karolinar.premieretracker.AboutActivity"
     tools:showIn="@layout/activity_about">
 
+    <TextView
+        android:id="@+id/page_title"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="O aplikacji"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="120dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <TextView
+        android:id="@+id/about_text"
+        android:layout_width="364dp"
+        android:layout_height="202dp"
+        android:text="Aplikacja PremiereTracker umożliwia śledzenie informacji o premierach książek, filmów oraz gier komputerowych wybranych przez użytkownika.\n\nDane dotyczące premier są aktualizowane automatycznie.  W wyznaczonym terminie przed premierą obserwowanego produktu użytkownik zostanie powiadomiony o zbliżającym się wydarzeniu.\n\nPo premierze użytkownik będzie miał możliwość zapoznania się z ofertami sklepów oferujących dany produkt w najlepszej cenie."
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/page_title"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent" />
 </android.support.constraint.ConstraintLayout>
