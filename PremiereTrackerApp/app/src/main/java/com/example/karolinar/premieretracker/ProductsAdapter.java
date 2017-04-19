@@ -48,21 +48,21 @@ public class ProductsAdapter extends ArrayAdapter<Product> {
             row = inflater.inflate(layoutResourceId, parent, false);
 
             holder = new ProductHolder();
-            final String title = product.getName();
+            final String title = product.getTitle();
             holder.title = (TextView)row.findViewById(R.id.col1);
             holder.date = (TextView)row.findViewById(R.id.col2);
 
-            final ImageButton im = (ImageButton)row.findViewById(R.id.liked);
-            im.setFocusable(false);
-            im.setFocusableInTouchMode(false);
-            final boolean selected = false;
-            im.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    im.setImageResource(android.R.drawable.star_big_on);
-                    //TODO database
-                }
-            });
+            //final ImageButton im = (ImageButton)row.findViewById(R.id.liked);
+            //im.setFocusable(false);
+            //im.setFocusableInTouchMode(false);
+            //final boolean selected = false;
+            //im.setOnClickListener(new View.OnClickListener() {
+             //   @Override
+            //    public void onClick(View v) {
+            //        im.setImageResource(android.R.drawable.star_big_on);
+            //       //TODO database
+            //    }
+            //});
 
             row.setTag(holder);
         }
@@ -70,9 +70,11 @@ public class ProductsAdapter extends ArrayAdapter<Product> {
             holder = (ProductHolder) row.getTag();
         }
 
-        holder.title.setText(product.getName());
+
+
+        holder.title.setText(product.getTitle());
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        String date = format.format(product.getPremiere());
+        String date = format.format(product.getPremiereDate());
         holder.date.setText(date);
 
         return row;

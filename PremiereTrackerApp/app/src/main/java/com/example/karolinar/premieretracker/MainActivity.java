@@ -23,7 +23,10 @@ public class MainActivity extends AppCompatActivity {
         //bookService.GetBooksWhichContainTheTextInTitle("harry potter");
         //List<Book> list = bookService.GetBooksByTitle("harry potter i kamień filozoficzny");
         DatabaseManager dbManager = new DatabaseManager(this);
-       // dbManager.AddProducsTypes();
+        if(dbManager.GetProductTypes().isEmpty()) {
+            dbManager.AddProducsTypes();
+        }
+       //
        // Product p = new Product();
        // p.Creator = "Ala";
        // p.Description = "fmmvfmv";
@@ -31,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
        // p.Premiere = new Date();
        // p.ProductType = "Book";
        // dbManager.AddProduct(p);
-       // dbManager.GetProducts();
        // dbManager.RemoveProduct(1);
        // dbManager.GetProducts();
 
@@ -48,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //Intent myIntent = new Intent(this, ContactActivity.class);
+        //Intent myIntent = new Intent(this, ObservedListActivity.class);
         //startActivity(myIntent);
 
         Button next = (Button) findViewById(R.id.btnObserved);

@@ -27,6 +27,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -36,6 +38,7 @@ public class ObservedListActivity extends AppCompatActivity {
     private ArrayList<Product> listProducts = new ArrayList<>();
     private ProductsAdapter observedProductsAdapter;
     private ListView listObservedProducts;
+    private DatabaseManager databaseManager = new DatabaseManager(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,37 +85,38 @@ public class ObservedListActivity extends AppCompatActivity {
 
     private void fillTable(){
         listProducts.clear();
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-                .permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-        try {
-            URL url = new URL("https://igdbcom-internet-game-database-v1.p.mashape.com/games/?fields=first_release_date%2Cname&limit=50&offset=0&order=release_dates.date%3Adesc&search=zelda");
-            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestProperty("X-Mashape-Key", "CT53butpo9mshilIIVZs6Bf1LS4Fp154lhwjsnJ4kNfjeWNNIP");
-            urlConnection.setRequestProperty("Accept", "application/json");
-            try {
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                StringBuilder stringBuilder = new StringBuilder();
-                String line;
-                while ((line = bufferedReader.readLine()) != null) {
-                    stringBuilder.append(line).append("\n");
-                }
-                bufferedReader.close();
-                ObjectMapper mapper = new ObjectMapper();
-                List<Game> games = mapper.readValue(stringBuilder.toString(), new TypeReference<List<Game>>(){});
-                listProducts.addAll(games);
-            }
-            finally{
-                urlConnection.disconnect();
-            }
+
+        Spinner spinnerCategory = (Spinner) findViewById(R.id.spinnerCategory);
+        String producType = ConvertCategoryTextToProductType(spinnerCategory.getSelectedItem().toString());
+        List<ProductEntity> products;
+
+        if(producType == null) {
+            products = databaseManager.GetProducts();
         }
-        catch(Exception e) {
-            Log.e("ERROR", e.getMessage(), e);
+        else {
+            products = databaseManager.GetProducts(producType);
         }
 
-        mock();
+        for(ProductEntity productEntity : products){
+            listProducts.add(new Product(productEntity.Name, productEntity.Premiere));
+        }
+
         observedProductsAdapter.notifyDataSetChanged();
-
     }
 
+    private String ConvertCategoryTextToProductType(String category)
+    {
+        switch (category){
+            case "Gry komputerowe":{
+                return "Game";
+            }
+            case "Książki":{
+                return "Book";
+            }
+            case "Filmy":{
+                return "Movie";
+            }
+        }
+        return null;
+    }
 }

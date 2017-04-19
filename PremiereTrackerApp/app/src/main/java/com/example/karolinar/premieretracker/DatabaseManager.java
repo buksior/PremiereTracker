@@ -56,7 +56,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void AddProduct(Product product) {
+    public void AddProduct(ProductEntity product) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues p = new ContentValues();
         p.put("Name", product.Name);
@@ -69,15 +69,15 @@ public class DatabaseManager extends SQLiteOpenHelper {
         db.close();
     }
 
-    public List<Product> GetProducts(){
+    public List<ProductEntity> GetProducts(){
         String[] columns = {"Id", "Name", "Creator", "Description", "Premiere", "ProductType"};
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query("Products", columns, null, null, null, null, null);
 
-        List<Product> products = new LinkedList<Product>();
+        List<ProductEntity> products = new LinkedList<ProductEntity>();
 
         while (cursor.moveToNext()){
-            Product product = new Product();
+            ProductEntity product = new ProductEntity();
             product.Id = cursor.getInt(0);
             product.Name = cursor.getString(1);
             product.Creator = cursor.getString(2);
@@ -91,6 +91,50 @@ public class DatabaseManager extends SQLiteOpenHelper {
         db.close();
 
         return products;
+    }
+
+    public List<ProductEntity> GetProducts(String producType){
+        String[] columns = {"Id", "Name", "Creator", "Description", "Premiere", "ProductType"};
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query("Products", columns, null, null, null, null, null);
+
+        List<ProductEntity> products = new LinkedList<ProductEntity>();
+
+        while (cursor.moveToNext()){
+            if(cursor.getString(5).toLowerCase().equals(producType.toLowerCase())) {
+                ProductEntity product = new ProductEntity();
+                product.Id = cursor.getInt(0);
+                product.Name = cursor.getString(1);
+                product.Creator = cursor.getString(2);
+                product.Description = cursor.getString(3);
+                product.Premiere = new Date(cursor.getLong(4));
+                product.ProductType = cursor.getString(5);
+                products.add(product);
+            }
+        }
+
+        cursor.close();
+        db.close();
+
+        return products;
+    }
+
+    public List<String> GetProductTypes(){
+        String[] columns = { "Name" };
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query("ProductTypes", columns, null, null, null, null, null);
+
+        List<String> types = new LinkedList<String>();
+
+        while (cursor.moveToNext()){
+            String type = cursor.getString(0);
+            types.add(type);
+        }
+
+        cursor.close();
+        db.close();
+
+        return types;
     }
 
     public void RemoveProduct(int id) {

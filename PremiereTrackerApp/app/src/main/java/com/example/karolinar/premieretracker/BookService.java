@@ -41,7 +41,7 @@ public class BookService {
 
         for (Iterator<Book> iter = books.iterator(); iter.hasNext(); ) {
             Book book = iter.next();
-            if (!book.Name.toLowerCase().equals(title.toLowerCase())) {
+            if (!book.getTitle().toLowerCase().equals(title.toLowerCase())) {
                 iter.remove();
             }
         }
@@ -74,8 +74,8 @@ public class BookService {
                     JSONObject info = jsonBook.getJSONObject("volumeInfo");
 
                     Book book = new Book();
-                    book.Premiere = convertDate(info.getString("publishedDate"));
-                    book.Name = info.getString("title");
+                    book.setPremiereDate(convertDate(info.getString("publishedDate")));
+                    book.setTitle(info.getString("title"));
 
                     books.add(book);
                 }

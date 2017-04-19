@@ -14,13 +14,13 @@ public class Book extends Product {
 
     @JsonProperty("name")
     @Override
-    public String getName(){
-        return super.getName();
+    public String getTitle() {
+        return super.getTitle();
     }
 
     @JsonProperty("first_release_date")
     @Override
-    public Date getPremiere(){
-        return super.getPremiere();
+    public Date getPremiereDate() {
+        return super.getPremiereDate();
     }
 }
