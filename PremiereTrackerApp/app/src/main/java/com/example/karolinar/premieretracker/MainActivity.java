@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 
 import java.util.Date;
 import java.util.List;
@@ -49,6 +50,15 @@ public class MainActivity extends AppCompatActivity {
 
         //Intent myIntent = new Intent(this, ContactActivity.class);
         //startActivity(myIntent);
+
+        Button next = (Button) findViewById(R.id.btnObserved);
+        next.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent myIntent = new Intent(view.getContext(), ObservedListActivity.class);
+                startActivityForResult(myIntent, 0);
+            }
+
+        });
     }
 
     @Override
