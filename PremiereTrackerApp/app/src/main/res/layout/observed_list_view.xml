@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/col1"
+        android:layout_height="50dp"
+        android:maxHeight="1000dp"
+        android:layout_width="180dp">
+    </TextView>
+    <TextView
+        android:id="@+id/col2"
+        android:layout_height="50dp"
+        android:maxHeight="1000dp"
+        android:layout_width="100dp">
+    </TextView>
+
+    <ImageButton
+        android:id="@+id/imageButton4"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:backgroundTint="@android:color/holo_green_light"
+        app:srcCompat="@android:drawable/ic_dialog_info" />
+
+    <ImageButton
+        android:id="@+id/btnDelete"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:adjustViewBounds="false"
+        android:background="@android:color/background_light"
+        android:backgroundTint="@android:color/background_light"
+        android:src="@android:drawable/ic_delete"
+        app:srcCompat="@android:drawable/ic_delete" />
+
+    <!--android:src="@android:drawable/star_big_off"-->
+</LinearLayout>
