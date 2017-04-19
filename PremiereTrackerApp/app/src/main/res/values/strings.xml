@@ -16,5 +16,10 @@
         <item>Książki</item>
         <item>Filmy</item>
     </string-array>
+    <string name="wyszukajProdukt">Wyszukaj produkt</string>
+    <string name="listaObserwowanych">Wyświetl listę obserwowanych</string>
+    <string name="help">Pomoc</string>
+    <string name="about">O aplikacji</string>
+
 
 </resources>

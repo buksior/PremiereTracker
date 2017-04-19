@@ -4,30 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBack"
     tools:context="com.example.karolinar.premieretracker.MainActivity">
 
-    <android.support.design.widget.AppBarLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="438dp"
+            app:srcCompat="@drawable/premiere_tracker_logo"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="5dp" />
+
+        <Button
+            android:id="@+id/buttonStart"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            android:layout_height="wrap_content"
+            android:background="@color/colorBack"
+            android:text="START"
+            android:textColor="@android:color/background_light"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            android:visibility="visible"
+            app:layout_anchor="@+id/imageView"
+            tools:layout_editor_absoluteX="135dp"
+            tools:layout_editor_absoluteY="826dp" />
 
-    </android.support.design.widget.AppBarLayout>
-
-    <include layout="@layout/content_first" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>
