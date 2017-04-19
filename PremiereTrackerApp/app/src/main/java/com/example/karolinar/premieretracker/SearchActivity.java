@@ -71,7 +71,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void mock(){
-        list.add(new Product("Steven Gerrard. Życie pozostawione na Anfield", new Date()));
+        list.add(new Product("Steven Gerrard. Serce pozostawione na Anfield", new Date()));
         list.add(new Product("Rozpacz", new Date()));
         list.add(new Product("Ciemno, prawie noc", new Date()));
         list.add(new Product("Franny i Zooey", new Date()));

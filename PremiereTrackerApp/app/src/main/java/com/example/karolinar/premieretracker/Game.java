@@ -14,13 +14,13 @@ public class Game extends Product{
 
     @JsonProperty("name")
     @Override
-    public String getTitle(){
-        return super.getTitle();
+    public String getName(){
+        return super.getName();
     }
 
     @JsonProperty("first_release_date")
     @Override
-    public Date getPremiereDate(){
-        return super.getPremiereDate();
+    public Date getPremiere(){
+        return super.getPremiere();
     }
 }

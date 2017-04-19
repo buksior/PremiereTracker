@@ -48,7 +48,7 @@ public class ProductsAdapter extends ArrayAdapter<Product> {
             row = inflater.inflate(layoutResourceId, parent, false);
 
             holder = new ProductHolder();
-            final String title = product.getTitle();
+            final String title = product.getName();
             holder.title = (TextView)row.findViewById(R.id.col1);
             holder.date = (TextView)row.findViewById(R.id.col2);
 
@@ -70,9 +70,9 @@ public class ProductsAdapter extends ArrayAdapter<Product> {
             holder = (ProductHolder) row.getTag();
         }
 
-        holder.title.setText(product.getTitle());
+        holder.title.setText(product.getName());
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        String date = format.format(product.getPremiereDate());
+        String date = format.format(product.getPremiere());
         holder.date.setText(date);
 
         return row;
