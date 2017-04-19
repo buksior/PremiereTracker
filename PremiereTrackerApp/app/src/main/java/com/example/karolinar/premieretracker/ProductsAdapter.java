@@ -3,6 +3,7 @@ package com.example.karolinar.premieretracker;
 import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,12 +41,14 @@ public class ProductsAdapter extends ArrayAdapter<Product> {
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         View row = convertView;
         ProductHolder holder = null;
+        Product product = data.get(position);
 
         if(row == null){
             LayoutInflater inflater = ((Activity)context).getLayoutInflater();
             row = inflater.inflate(layoutResourceId, parent, false);
 
             holder = new ProductHolder();
+            final String title = product.getTitle();
             holder.title = (TextView)row.findViewById(R.id.col1);
             holder.date = (TextView)row.findViewById(R.id.col2);
 
@@ -67,7 +70,6 @@ public class ProductsAdapter extends ArrayAdapter<Product> {
             holder = (ProductHolder) row.getTag();
         }
 
-        Product product = data.get(position);
         holder.title.setText(product.getTitle());
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         String date = format.format(product.getPremiereDate());
