@@ -16,5 +16,5 @@
         <item>Książki</item>
         <item>Filmy</item>
     </string-array>
-
+    <string name="start">START</string>
 </resources>

@@ -1,18 +1,15 @@
 package com.example.karolinar.premieretracker;
 
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Button;
-
-import java.util.Date;
-import java.util.List;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,6 +20,10 @@ public class MainActivity extends AppCompatActivity {
         //bookService.GetBooksWhichContainTheTextInTitle("harry potter");
         //List<Book> list = bookService.GetBooksByTitle("harry potter i kamień filozoficzny");
         DatabaseManager dbManager = new DatabaseManager(this);
+
+       //MovieService movieService = new MovieService();
+       // List<Movie> moviesList = movieService.GetMoviesWhichContainTheTextInTitle("Saw");
+
         if(dbManager.GetProductTypes().isEmpty()) {
             dbManager.AddProducsTypes();
         }
@@ -38,10 +39,10 @@ public class MainActivity extends AppCompatActivity {
        // dbManager.GetProducts();
 
         setContentView(R.layout.activity_first);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+      //  Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+      //  setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+       /* FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,20 +50,40 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-
+*/
         //Intent myIntent = new Intent(this, ObservedListActivity.class);
         //startActivity(myIntent);
+        ImageView iv = (ImageView) findViewById(R.id.imageView);
+        iv.setScaleType(ImageButton.ScaleType.FIT_CENTER);
 
-        Button next = (Button) findViewById(R.id.btnObserved);
-        next.setOnClickListener(new View.OnClickListener() {
+        Button buttonStart = (Button) findViewById(R.id.buttonStart);
+        buttonStart.setOnClickListener(new View.OnClickListener(){
+
+            @Override
             public void onClick(View view) {
-                Intent myIntent = new Intent(view.getContext(), ObservedListActivity.class);
-                startActivityForResult(myIntent, 0);
-            }
 
+                if (isOnline()){
+                     Intent startIntent = new Intent(getApplicationContext(),MenuActivity.class);
+                    startActivity(startIntent);
+                }else{
+
+                    Toast.makeText(MainActivity.this.getApplicationContext(), "Aby korzystać z aplikacji musisz się połączyć z Internetem!", Toast.LENGTH_SHORT).show();
+                }
+
+
+            }
         });
+
     }
 
+    public boolean isOnline() {
+        ConnectivityManager connectivityManager = (ConnectivityManager)
+                getSystemService(this.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        return (networkInfo != null && networkInfo.isConnected());
+    }
+
+/*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -83,5 +104,5 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 }
