@@ -36,7 +36,7 @@ import java.util.List;
 public class ObservedListActivity extends AppCompatActivity {
 
     private ArrayList<Product> listProducts = new ArrayList<>();
-    private ProductsAdapter observedProductsAdapter;
+    private ObservedProductAdapter observedProductsAdapter;
     private ListView listObservedProducts;
     private DatabaseManager databaseManager = new DatabaseManager(this);
 
@@ -57,7 +57,7 @@ public class ObservedListActivity extends AppCompatActivity {
         });
 
         listObservedProducts = (ListView) findViewById(R.id.listObservedProducts);
-        observedProductsAdapter = new ProductsAdapter(this, R.layout.observed_list_view, listProducts);
+        observedProductsAdapter = new ObservedProductAdapter(this, R.layout.observed_list_view, listProducts);
         listObservedProducts.setAdapter(observedProductsAdapter);
         Spinner spinnerCategory = (Spinner) findViewById(R.id.spinnerCategory);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -71,6 +71,8 @@ public class ObservedListActivity extends AppCompatActivity {
                 fillTable();
             }
         });
+
+
     }
 
     /*private void mock(){

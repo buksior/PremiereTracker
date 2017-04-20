@@ -8,10 +8,10 @@
 
     <TextView
         android:id="@+id/col1"
+        android:layout_width="180dp"
         android:layout_height="50dp"
-        android:maxHeight="1000dp"
-        android:layout_width="180dp">
-    </TextView>
+        android:maxHeight="1000dp"></TextView>
+
     <TextView
         android:id="@+id/col2"
         android:layout_height="50dp"
