@@ -20,6 +20,10 @@ public class MainActivity extends AppCompatActivity {
         //bookService.GetBooksWhichContainTheTextInTitle("harry potter");
         //List<Book> list = bookService.GetBooksByTitle("harry potter i kamień filozoficzny");
         DatabaseManager dbManager = new DatabaseManager(this);
+
+       //MovieService movieService = new MovieService();
+       // List<Movie> moviesList = movieService.GetMoviesWhichContainTheTextInTitle("Saw");
+
         if(dbManager.GetProductTypes().isEmpty()) {
             dbManager.AddProducsTypes();
         }
@@ -59,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 if (isOnline()){
-                    Intent startIntent = new Intent(getApplicationContext(),MenuActivity.class);
+                     Intent startIntent = new Intent(getApplicationContext(),MenuActivity.class);
                     startActivity(startIntent);
                 }else{
 
