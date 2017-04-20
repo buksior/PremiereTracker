@@ -1,12 +1,15 @@
 package com.example.karolinar.premieretracker;
 
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -54,12 +57,28 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                Intent startIntent = new Intent(getApplicationContext(),MenuActivity.class);
-                startActivity(startIntent);
+
+                if (isOnline()){
+                    Intent startIntent = new Intent(getApplicationContext(),MenuActivity.class);
+                    startActivity(startIntent);
+                }else{
+
+                    Toast.makeText(MainActivity.this.getApplicationContext(), "Aby korzystać z aplikacji musisz się połączyć z Internetem!", Toast.LENGTH_SHORT).show();
+                }
+
+
             }
         });
 
     }
+
+    public boolean isOnline() {
+        ConnectivityManager connectivityManager = (ConnectivityManager)
+                getSystemService(this.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        return (networkInfo != null && networkInfo.isConnected());
+    }
+
 /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
