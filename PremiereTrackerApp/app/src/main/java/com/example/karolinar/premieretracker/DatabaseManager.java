@@ -137,6 +137,25 @@ public class DatabaseManager extends SQLiteOpenHelper {
         return types;
     }
 
+    public boolean existsProduct(ProductEntity p){
+        SQLiteDatabase db = getReadableDatabase();
+        String[] columns = {"Id", "Name", "Creator", "Description", "Premiere", "ProductType"};
+        Cursor cursor = db.query("Products", columns, null, null, null, null, null);
+        List<ProductEntity> products = new LinkedList<ProductEntity>();
+
+        while (cursor.moveToNext()){
+            if(cursor.getString(1).toLowerCase().equals(p.Name.toLowerCase())
+                    && cursor.getString(2).toLowerCase().equals(p.Creator.toLowerCase())
+                    && cursor.getString(3).toLowerCase().equals(p.Description.toLowerCase())
+                    && cursor.getString(5).toLowerCase().equals(p.ProductType.toLowerCase())) {
+                return true;
+            }
+        }
+        cursor.close();
+        db.close();
+        return false;
+    }
+
     public void RemoveProduct(int id) {
         SQLiteDatabase db = getWritableDatabase();
         String[] arguments = {"" + id};

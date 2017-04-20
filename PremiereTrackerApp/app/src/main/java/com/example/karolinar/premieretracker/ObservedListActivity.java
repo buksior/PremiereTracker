@@ -73,7 +73,7 @@ public class ObservedListActivity extends AppCompatActivity {
         });
     }
 
-    private void mock(){
+    /*private void mock(){
         listProducts.add(new Product("Steven Gerrard. Życie pozostawione na Anfield", new Date()));
         listProducts.add(new Product("Rozpacz", new Date()));
         listProducts.add(new Product("Ciemno, prawie noc", new Date()));
@@ -81,7 +81,7 @@ public class ObservedListActivity extends AppCompatActivity {
         listProducts.add(new Product("Bieg po życie", new Date()));
         listProducts.add(new Product("Doktor Faustus", new Date()));
         listProducts.add(new Product("Swiat według Garpa", new Date()));
-    }
+    }*/
 
     private void fillTable(){
         listProducts.clear();
@@ -98,10 +98,15 @@ public class ObservedListActivity extends AppCompatActivity {
         }
 
         for(ProductEntity productEntity : products){
-            listProducts.add(new Product(productEntity.Name, productEntity.Premiere));
+            listProducts.add(new Product(productEntity.Name, productEntity.Premiere, exists(productEntity)));
         }
 
         observedProductsAdapter.notifyDataSetChanged();
+    }
+
+    public boolean exists(ProductEntity entity){
+        DatabaseManager db = new DatabaseManager(this);
+        return db.existsProduct(entity);
     }
 
     private String ConvertCategoryTextToProductType(String category)

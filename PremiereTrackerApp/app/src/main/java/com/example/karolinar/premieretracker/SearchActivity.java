@@ -70,16 +70,6 @@ public class SearchActivity extends AppCompatActivity {
         });
     }
 
-    private void mock(){
-        list.add(new Product("Steven Gerrard. Serce pozostawione na Anfield", new Date()));
-        list.add(new Product("Rozpacz", new Date()));
-        list.add(new Product("Ciemno, prawie noc", new Date()));
-        list.add(new Product("Franny i Zooey", new Date()));
-        list.add(new Product("Bieg po życie", new Date()));
-        list.add(new Product("Doktor Faustus", new Date()));
-        list.add(new Product("Swiat według Garpa", new Date()));
-    }
-
     private void fillTable(){
         list.clear();
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
@@ -100,6 +90,11 @@ public class SearchActivity extends AppCompatActivity {
                     bufferedReader.close();
                     ObjectMapper mapper = new ObjectMapper();
                     List<Game> games = mapper.readValue(stringBuilder.toString(), new TypeReference<List<Game>>(){});
+                    for(Game g : games){
+                        if(exists(g)){
+                            g.setFavorite(true);
+                        }
+                    }
                     list.addAll(games);
                 }
                 finally{
@@ -112,5 +107,16 @@ public class SearchActivity extends AppCompatActivity {
 
         //mock();
         listAdapter.notifyDataSetChanged();
+    }
+
+    public boolean exists(Product p){
+        ProductEntity entity = new ProductEntity();
+        entity.Description = "";
+        entity.Name = p.getTitle();
+        entity.Premiere = p.getPremiereDate();
+        entity.ProductType = p.getClass().getSimpleName();
+        entity.Creator = "";
+        DatabaseManager db = new DatabaseManager(this);
+        return db.existsProduct(entity);
     }
 }
