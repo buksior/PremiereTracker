@@ -11,6 +11,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -28,15 +30,15 @@ public class MainActivity extends AppCompatActivity {
             dbManager.AddProducsTypes();
         }
        //
-       // Product p = new Product();
-       // p.Creator = "Ala";
-       // p.Description = "fmmvfmv";
-       // p.Name = "Cos";
-       // p.Premiere = new Date();
-       // p.ProductType = "Book";
-       // dbManager.AddProduct(p);
-       // dbManager.RemoveProduct(1);
-       // dbManager.GetProducts();
+//        ProductEntity p = new ProductEntity();
+//        p.Creator = "Ala";
+//        p.Description = "fmmvfmv";
+//        p.Name = "Cos";
+//        p.Premiere = new Date();
+//        p.ProductType = "Book";
+//        dbManager.AddProduct(p);
+//        dbManager.RemoveProduct(1);
+//        dbManager.GetProducts();
 
         setContentView(R.layout.activity_first);
       //  Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
