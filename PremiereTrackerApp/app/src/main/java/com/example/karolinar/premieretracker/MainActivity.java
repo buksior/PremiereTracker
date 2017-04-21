@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.Date;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //BookService bookService = new BookService();
-        //bookService.GetBooksWhichContainTheTextInTitle("harry potter");
         //List<Book> list = bookService.GetBooksByTitle("harry potter i kamień filozoficzny");
         DatabaseManager dbManager = new DatabaseManager(this);
 
