@@ -43,6 +43,8 @@
             android:label="ContactActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".MenuActivity" />
+
+        <receiver android:name=".ApproachingPremiereAlarmReceiver"></receiver>
     </application>
 
 </manifest>

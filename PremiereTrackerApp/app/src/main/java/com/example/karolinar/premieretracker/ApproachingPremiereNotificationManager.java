@@ -45,9 +45,11 @@ public class ApproachingPremiereNotificationManager {
         date.clear(Calendar.HOUR); date.clear(Calendar.MINUTE); date.clear(Calendar.SECOND);
         date.add(Calendar.DATE, days);
 
+        int numberOfProduct = 0;
         for(ProductEntity product : products) {
             if( sdf.format(product.Premiere).equals(sdf.format(date.getTime()))) {
                 message += " " + product.Name + ",";
+                numberOfProduct++;
             }
         }
 
@@ -58,7 +60,9 @@ public class ApproachingPremiereNotificationManager {
                         .setContentTitle(title)
                         .setContentText(message);
 
-        notificationManager.notify(notificationNumber, mBuilder.build());
-        notificationNumber++;
+        if(numberOfProduct > 0) {
+            notificationManager.notify(notificationNumber, mBuilder.build());
+            notificationNumber++;
+        }
     }
 }
