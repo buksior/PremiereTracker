@@ -36,6 +36,8 @@ import static android.R.id.list;
 
 public class BookService {
 
+    private int numberOfBooksPerRequestLimit = 30;
+
     public List<Book> GetBooksByTitle(String title) {
         List<Book> books = GetBooksWhichContainTheTextInTitle(title);
 
@@ -55,7 +57,8 @@ public class BookService {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         try {
-            URL url = new URL("https://www.googleapis.com/books/v1/volumes?q=intitle:" + URLEncoder.encode(text, "UTF-8"));
+            URL url = new URL("https://www.googleapis.com/books/v1/volumes?q=intitle:" + URLEncoder.encode(text, "UTF-8")+ "&maxResults="
+                    + numberOfBooksPerRequestLimit);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestProperty("Accept", "application/json");
             try {
@@ -76,6 +79,64 @@ public class BookService {
                     Book book = new Book();
                     book.setPremiereDate(convertDate(info.getString("publishedDate")));
                     book.setTitle(info.getString("title"));
+                    book.setAuthor(info.getJSONArray("authors").get(0).toString());
+
+                    books.add(book);
+                }
+            }
+            finally{
+                urlConnection.disconnect();
+            }
+        }
+        catch(Exception e) {
+            Log.e("ERROR", e.getMessage(), e);
+        }
+
+        return books;
+    }
+
+    public List<Book> GetBooksByAuthor(String author) {
+        List<Book> books = GetBooksWhichContainTheTextInAuthor(author);
+
+        for (Iterator<Book> iter = books.iterator(); iter.hasNext(); ) {
+            Book book = iter.next();
+            if (!book.getAuthor().toLowerCase().equals(author.toLowerCase())) {
+                iter.remove();
+            }
+        }
+
+        return books;
+    }
+
+    public List<Book> GetBooksWhichContainTheTextInAuthor(String text) {
+        List<Book> books = new LinkedList<Book>();
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        try {
+            URL url = new URL("https://www.googleapis.com/books/v1/volumes?q=inauthor:" + URLEncoder.encode(text, "UTF-8")
+                    + "&maxResults=" + numberOfBooksPerRequestLimit);
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestProperty("Accept", "application/json");
+            try {
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                StringBuilder stringBuilder = new StringBuilder();
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    stringBuilder.append(line).append("\n");
+                }
+                bufferedReader.close();
+
+                JSONObject jsonObj = new JSONObject(stringBuilder.toString());
+                JSONArray arrayBooks = jsonObj.getJSONArray("items");
+                for (int i = 0; i < arrayBooks.length(); i++) {
+                    JSONObject jsonBook = arrayBooks.getJSONObject(i);
+                    JSONObject info = jsonBook.getJSONObject("volumeInfo");
+
+                    Book book = new Book();
+                    book.setPremiereDate(convertDate(info.getString("publishedDate")));
+                    book.setTitle(info.getString("title"));
+                    book.setAuthor(info.getJSONArray("authors").get(0).toString());
 
                     books.add(book);
                 }

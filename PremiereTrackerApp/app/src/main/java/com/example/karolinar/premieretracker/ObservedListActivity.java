@@ -69,6 +69,5 @@ public class ObservedListActivity extends AppCompatActivity {
             }
         });
 
-
     }
 }

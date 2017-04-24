@@ -1,27 +1,41 @@
 package com.example.karolinar.premieretracker;
 
+import android.app.AlarmManager;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //BookService bookService = new BookService();
-        //bookService.GetBooksWhichContainTheTextInTitle("harry potter");
-        //List<Book> list = bookService.GetBooksByTitle("harry potter i kamień filozoficzny");
         DatabaseManager dbManager = new DatabaseManager(this);
+
+        //ApproachingPremiereNotificationManager m = new ApproachingPremiereNotificationManager(this, (NotificationManager) getSystemService(NOTIFICATION_SERVICE));
+        //m.showNotyficationTodayPremiere();
+        //m.showNotyficationDaysBerforePremiere(7);
+        //BookService bookService = new BookService();
+        //List<Book> list = bookService.GetBooksByTitle("harry potter i kamień filozoficzny");
 
        //MovieService movieService = new MovieService();
        // List<Movie> moviesList = movieService.GetMoviesWhichContainTheTextInTitle("Saw");
@@ -29,6 +43,18 @@ public class MainActivity extends AppCompatActivity {
         if(dbManager.GetProductTypes().isEmpty()) {
             dbManager.AddProducsTypes();
         }
+
+        Intent alarmApproachingPremiereIntent = new Intent(this, ApproachingPremiereAlarmReceiver.class);
+        PendingIntent pendingApproachingPremiereIntent = PendingIntent.getBroadcast(this, 0, alarmApproachingPremiereIntent, 0);
+
+        AlarmManager manager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 10);
+
+        manager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingApproachingPremiereIntent);
        //
 //        ProductEntity p = new ProductEntity();
 //        p.Creator = "Ala";
@@ -71,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
 
                     Toast.makeText(MainActivity.this.getApplicationContext(), "Aby korzystać z aplikacji musisz się połączyć z Internetem!", Toast.LENGTH_SHORT).show();
                 }
-
 
             }
         });
