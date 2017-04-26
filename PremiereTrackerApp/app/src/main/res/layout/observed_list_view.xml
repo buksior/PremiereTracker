@@ -20,7 +20,7 @@
     </TextView>
 
     <ImageButton
-        android:id="@+id/imageButton4"
+        android:id="@+id/btnInfo"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_weight="1"
