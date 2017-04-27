@@ -25,6 +25,9 @@ import java.util.List;
 
 public class MovieService {
 
+    private int numberOfMovies = 10;
+    private Date today = new Date();
+
     public List<Movie> GetMoviesByTitle(String title) {
         List<Movie> movies = GetMoviesWhichContainTheTextInTitle(title);
 
@@ -67,8 +70,12 @@ public class MovieService {
                     movie.setPremiereDate(convertDate(info.getString("release_date")));
                     movie.setTitle(info.getString("title"));
 
-                    movies.add(movie);
-                }
+        if(movie.getPremiereDate().after(today) ){
+
+            movies.add(movie);
+        }
+
+               }
             }
             finally{
                 urlConnection.disconnect();
@@ -76,6 +83,18 @@ public class MovieService {
         }
         catch(Exception e) {
             Log.e("ERROR", e.getMessage(), e);
+        }
+
+        if(movies.size() >= numberOfMovies){
+
+            List<Movie> moviesLimited = new LinkedList<Movie>();
+
+            for (int i=0; i<numberOfMovies; i++){
+                moviesLimited.add(movies.get(i));
+            }
+            movies.clear();
+            movies.addAll(moviesLimited);
+
         }
 
         return movies;
@@ -135,7 +154,9 @@ public class MovieService {
                     movie.setDescription(info.getString("job"));
                     movie.setAuthor(getPersonName(idDirector));
 
-                    movies.add(movie);
+                   if(movie.getPremiereDate().after(today) ) {
+                       movies.add(movie);
+                    }
                 }
 
                 }
@@ -146,6 +167,18 @@ public class MovieService {
         }
         catch(Exception e) {
             Log.e("ERROR", e.getMessage(), e);
+        }
+
+        if(movies.size() >= numberOfMovies){
+
+            List<Movie> moviesLimited = new LinkedList<Movie>();
+
+            for (int i=0; i<numberOfMovies; i++){
+                moviesLimited.add(movies.get(i));
+            }
+            movies.clear();
+            movies.addAll(moviesLimited);
+
         }
 
         return movies;
