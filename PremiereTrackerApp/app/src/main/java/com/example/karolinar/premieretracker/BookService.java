@@ -36,7 +36,7 @@ import static android.R.id.list;
 
 public class BookService {
 
-    private int numberOfBooksPerRequestLimit = 30;
+    private int numberOfBooksPerRequestLimit = 10;
 
     public List<Book> GetBooksByTitle(String title) {
         List<Book> books = GetBooksWhichContainTheTextInTitle(title);
