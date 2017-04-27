@@ -23,4 +23,14 @@ public class Game extends Product{
     public Date getPremiereDate(){
         return super.getPremiereDate();
     }
+
+    private String author;
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
 }

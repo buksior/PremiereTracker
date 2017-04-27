@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -65,38 +66,14 @@ public class SearchActivity extends AppCompatActivity {
 
     private void fillTable(){
         list.clear();
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-                .permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-            try {
-                URL url = new URL("https://igdbcom-internet-game-database-v1.p.mashape.com/games/?fields=first_release_date%2Cname&limit=50&offset=0&order=release_dates.date%3Adesc&search=zelda");
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setRequestProperty("X-Mashape-Key", "CT53butpo9mshilIIVZs6Bf1LS4Fp154lhwjsnJ4kNfjeWNNIP");
-                urlConnection.setRequestProperty("Accept", "application/json");
-                try {
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                    StringBuilder stringBuilder = new StringBuilder();
-                    String line;
-                    while ((line = bufferedReader.readLine()) != null) {
-                        stringBuilder.append(line).append("\n");
-                    }
-                    bufferedReader.close();
-                    ObjectMapper mapper = new ObjectMapper();
-                    List<Game> games = mapper.readValue(stringBuilder.toString(), new TypeReference<List<Game>>(){});
-                    for(Game g : games){
-                        if(exists(g)){
-                            g.setFavorite(true);
-                        }
-                    }
-                    list.addAll(games);
-                }
-                finally{
-                    urlConnection.disconnect();
-                }
+        GameService service = new GameService();
+        List<Game> games = service.getGamesWhichContainsTheTextInAuthor("konami");
+        for(Game g : games){
+            if(exists(g)){
+                g.setFavorite(true);
             }
-            catch(Exception e) {
-                Log.e("ERROR", e.getMessage(), e);
-            }
+        }
+        list.addAll(games);
 
         //mock();
         listAdapter.notifyDataSetChanged();
