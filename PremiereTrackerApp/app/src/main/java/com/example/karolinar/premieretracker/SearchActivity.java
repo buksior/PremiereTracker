@@ -95,7 +95,7 @@ public class SearchActivity extends AppCompatActivity {
                 }else if(radioCategory.equals("Autor")){
                     switch (selectedCategory) {
                         case "Gry komputerowe":
-                            productEntityList = searchService.findGameByTitle(editText.getText().toString());
+                            productEntityList = searchService.findGameByStudio(editText.getText().toString());
                             list.addAll(productEntityList);
                             break;
                         case "Książki":

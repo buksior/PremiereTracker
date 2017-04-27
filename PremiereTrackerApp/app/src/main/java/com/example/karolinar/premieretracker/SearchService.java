@@ -85,19 +85,19 @@ public class SearchService {
         return gameProducts;
     }
 
-//    public List<Product> findGameByStudio(String studio){
-//        GameService gameService = new GameService();
-//        List<Game> gamesList = gameService.GetGamesWhichContainTheTextInTitle(studio);
-//        final List<Product> gameProducts = new ArrayList<>();
-//
-//        for (Iterator<Game> iter = gamesList.iterator(); iter.hasNext(); ) {
-//            Product product = new Product();
-//            Game game = iter.next();
-//            product.setTitle(game.getTitle());
-//            product.setPremiereDate(game.getPremiereDate());
-//            gameProducts.add(product);
-//        }
-//        return gameProducts;
-//    }
+    public List<Product> findGameByStudio(String studio){
+        GameService gameService = new GameService();
+        List<Game> gamesList = gameService.getGamesWhichContainsTheTextInAuthor(studio);
+        final List<Product> gameProducts = new ArrayList<>();
+
+        for (Iterator<Game> iter = gamesList.iterator(); iter.hasNext(); ) {
+            Product product = new Product();
+            Game game = iter.next();
+            product.setTitle(game.getTitle());
+            product.setPremiereDate(game.getPremiereDate());
+            gameProducts.add(product);
+        }
+        return gameProducts;
+    }
 
 }
