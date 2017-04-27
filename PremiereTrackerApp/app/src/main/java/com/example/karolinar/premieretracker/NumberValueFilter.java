@@ -19,7 +19,6 @@ public class NumberValueFilter implements InputFilter {
     @Override
     public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dStart, int dEnd) {
         try {
-            // Remove the string out of destination that is to be replaced
             String newVal = dest.toString().substring(0, dStart) + dest.toString().substring(dEnd, dest.toString().length());
             newVal = newVal.substring(0, dStart) + source.toString() + newVal.substring(dStart, newVal.length());
             double input = Double.parseDouble(newVal);
