@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import static com.example.karolinar.premieretracker.R.id.btnAbout;
+import static com.example.karolinar.premieretracker.R.id.btnConfig;
 import static com.example.karolinar.premieretracker.R.id.btnContact;
 import static com.example.karolinar.premieretracker.R.id.btnSearch;
 
@@ -53,6 +54,16 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent startIntent = new Intent(getApplicationContext(),AboutActivity.class);
+                startActivity(startIntent);
+            }
+        });
+
+        Button buttonConfig = (Button) findViewById(btnConfig);
+        buttonConfig.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                Intent startIntent = new Intent(getApplicationContext(),ConfigurationActivity.class);
                 startActivity(startIntent);
             }
         });

@@ -44,7 +44,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".MenuActivity" />
 
-        <receiver android:name=".ApproachingPremiereAlarmReceiver"></receiver>
+        <receiver android:name=".ApproachingPremiereAlarmReceiver" />
+
+        <activity android:name=".ConfigurationActivity"></activity>
     </application>
 
 </manifest>

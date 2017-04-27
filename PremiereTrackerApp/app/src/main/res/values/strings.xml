@@ -17,4 +17,6 @@
         <item>Filmy</item>
     </string-array>
     <string name="start">START</string>
+    <string name="days">Ile dni przed premierą chcesz otrzymywać powiadomienia?</string>
+    <string name="zatwierdz">Zatwierdź</string>
 </resources>
