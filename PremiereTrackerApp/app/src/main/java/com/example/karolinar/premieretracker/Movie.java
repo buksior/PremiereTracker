@@ -22,6 +22,27 @@ public class Movie extends Product{
         @JsonProperty("release_date")
         @Override
         public Date getPremiereDate() {
+
             return super.getPremiereDate();
         }
+
+    private String author;
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    private String description;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
     }

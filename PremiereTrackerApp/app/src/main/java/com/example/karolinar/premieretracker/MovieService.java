@@ -24,6 +24,7 @@ import java.util.List;
  */
 
 public class MovieService {
+
     public List<Movie> GetMoviesByTitle(String title) {
         List<Movie> movies = GetMoviesWhichContainTheTextInTitle(title);
 
@@ -44,7 +45,7 @@ public class MovieService {
         StrictMode.setThreadPolicy(policy);
         try {
 
-            URL url = new URL("https://api.themoviedb.org/3/search/movie?api_key=ecf192cdd9fe2e8ff5a5699aeb9e12a2&language=en-US&query=" + URLEncoder.encode(text, "UTF-8"));
+            URL url = new URL("https://api.themoviedb.org/3/search/movie?api_key=ecf192cdd9fe2e8ff5a5699aeb9e12a2&query=" + URLEncoder.encode(text, "UTF-8"));
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestProperty("Accept", "application/json");
             try {
@@ -79,6 +80,150 @@ public class MovieService {
 
         return movies;
     }
+
+    public List<Movie> GetMoviesByDirector(String director) {
+        List<Movie> movies = GetMoviesWhichContainTheTextInDirector(director);
+
+        for (Iterator<Movie> iter = movies.iterator(); iter.hasNext(); ) {
+            Movie movie = iter.next();
+            if (!movie.getAuthor().toLowerCase().equals(director.toLowerCase())) {
+                iter.remove();
+            }
+        }
+
+        return movies;
+    }
+
+    public List<Movie> GetMoviesWhichContainTheTextInDirector(String text) {
+
+        List<Movie> movies = new LinkedList<Movie>();
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        try {
+
+            String idDirector = getPersonId(text);
+
+            URL url = new URL("https://api.themoviedb.org/3/person/" + URLEncoder.encode(idDirector, "UTF-8")+
+                    "/combined_credits?api_key=ecf192cdd9fe2e8ff5a5699aeb9e12a2");
+
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestProperty("Accept", "application/json");
+            try {
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                StringBuilder stringBuilder = new StringBuilder();
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    stringBuilder.append(line).append("\n");
+                }
+                bufferedReader.close();
+
+                JSONObject jsonObj = new JSONObject(stringBuilder.toString());
+
+                JSONArray arrayMovies = jsonObj.getJSONArray("crew");
+                for (int i = 0; i < arrayMovies.length(); i++) {
+                    JSONObject jsonMovie = arrayMovies.getJSONObject(i);
+                    JSONObject info = jsonMovie;
+
+                    Movie movie = new Movie();
+
+                    String jobType=info.getString("job");
+
+                if(jobType.equals("Director")){
+                    movie.setPremiereDate(convertDate(info.getString("release_date")));
+                    movie.setTitle(info.getString("title"));
+                    movie.setDescription(info.getString("job"));
+                    movie.setAuthor(getPersonName(idDirector));
+
+                    movies.add(movie);
+                }
+
+                }
+            }
+            finally{
+                urlConnection.disconnect();
+            }
+        }
+        catch(Exception e) {
+            Log.e("ERROR", e.getMessage(), e);
+        }
+
+        return movies;
+    }//
+
+
+
+    public String getPersonId(String text){
+
+        String idPerson="";
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        try {
+
+            URL url = new URL("https://api.themoviedb.org/3/search/person?api_key=ecf192cdd9fe2e8ff5a5699aeb9e12a2&query=" + URLEncoder.encode(text, "UTF-8"));
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestProperty("Accept", "application/json");
+            try {
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                StringBuilder stringBuilder = new StringBuilder();
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    stringBuilder.append(line).append("\n");
+                }
+                bufferedReader.close();
+
+                JSONObject jsonObj = new JSONObject(stringBuilder.toString());
+                JSONArray arrayMovies = jsonObj.getJSONArray("results");
+                JSONObject jsonMovie = arrayMovies.getJSONObject(0);
+                idPerson = jsonMovie.getString("id");
+
+            }
+            finally{
+                urlConnection.disconnect();
+            }
+        }
+        catch(Exception e) {
+            Log.e("ERROR", e.getMessage(), e);
+        }
+        return idPerson;
+    } ///
+
+    public String getPersonName(String personId) {
+
+        String getPersonName="";
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        try {
+
+            URL url = new URL("https://api.themoviedb.org/3/person/" + URLEncoder.encode(personId, "UTF-8")+
+                    "?api_key=ecf192cdd9fe2e8ff5a5699aeb9e12a2" );
+
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestProperty("Accept", "application/json");
+            try {
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                StringBuilder stringBuilder = new StringBuilder();
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    stringBuilder.append(line).append("\n");
+                }
+                bufferedReader.close();
+
+                JSONObject jsonObj = new JSONObject(stringBuilder.toString());
+                getPersonName = jsonObj.getString("name");
+            }
+            finally{
+                urlConnection.disconnect();
+            }
+        }
+        catch(Exception e) {
+            Log.e("ERROR", e.getMessage(), e);
+        }
+        return getPersonName;
+
+    }//
 
     private Date convertDate(String stringDate){
         Date date = null;
