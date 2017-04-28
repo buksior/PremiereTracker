@@ -23,11 +23,11 @@ public class DetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
-        TextView txtViewNameValue = (TextView) findViewById(R.id.txtViewNameValue);
-        TextView txtViewCategoryValue = (TextView) findViewById(R.id.txtViewCategoryValue);
-        TextView txtViewCreatorValue = (TextView) findViewById(R.id.txtViewCreatorValue);
-        TextView txtViewDescriptionValue = (TextView) findViewById(R.id.txtViewDescriptionValue);
-        TextView txtViewPremiereValue = (TextView) findViewById(R.id.txtViewPremiereDateValue);
+        //TextView txtViewNameValue = (TextView) findViewById(R.id.txtViewNameValue);
+        //TextView txtViewCategoryValue = (TextView) findViewById(R.id.txtViewCategoryValue);
+        //TextView txtViewCreatorValue = (TextView) findViewById(R.id.txtViewCreatorValue);
+        //TextView txtViewDescriptionValue = (TextView) findViewById(R.id.txtViewDescriptionValue);
+        //TextView txtViewPremiereValue = (TextView) findViewById(R.id.txtViewPremiereDateValue);
 
         dbManager=new DatabaseManager(this);
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd");

@@ -162,12 +162,12 @@ public class BookService {
                     break;
                 }
                 case 7:{
-                    DateFormat format = new SimpleDateFormat("yyyy-mm");
+                    DateFormat format = new SimpleDateFormat("yyyy-MM");
                     date = format.parse(stringDate);
                     break;
                 }
                 case 10:{
-                    DateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+                    DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                     date = format.parse(stringDate);
                     break;
                 }

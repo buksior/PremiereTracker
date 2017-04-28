@@ -99,8 +99,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
     public List<ProductEntity> GetProducts(String producType){
         String[] columns = {"Id", "Name", "Creator", "Description", "Premiere", "ProductType"};
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.query("Products", columns, null, null, null, null, null);
 
+        Cursor cursor = db.query("Products", columns, null, null, null, null, null);
         List<ProductEntity> products = new LinkedList<ProductEntity>();
 
         while (cursor.moveToNext()){
