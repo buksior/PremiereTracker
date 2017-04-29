@@ -25,14 +25,14 @@ public class Product {
     private boolean isFavorite;
 
     public String getProductType() {
-        return ProductType;
+        return productType;
     }
 
     public void setProductType(String productType) {
-        ProductType = productType;
+        this.productType = productType;
     }
 
-    private String ProductType;
+    private String productType;
 
     public String getTitle() {
         return title;
