@@ -35,33 +35,59 @@ public class ObservedListActivity extends AppCompatActivity {
     private ListView listObservedProducts;
     DatabaseManager databaseManager = new DatabaseManager(this);
     ArrayList<ProductEntity>  listProducts = new ArrayList<>();
+    private Button btnSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_observed_list);
-            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-            setSupportActionBar(toolbar);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_observed_list);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-            listObservedProducts = (ListView) findViewById(R.id.listObservedProducts);
-            List<ProductEntity> productEntityList = new ArrayList<>();
-            productEntityList = databaseManager.GetProducts();
-            listProducts.addAll(productEntityList);
-            observedProductsAdapter = new ObservedProductsAdapter(this, R.layout.observed_list_view, listProducts);
-            listObservedProducts.setAdapter(observedProductsAdapter);
-            Spinner spinnerCategory = (Spinner) findViewById(R.id.spinnerCategory);
-            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                    R.array.content_types_array, android.R.layout.simple_spinner_item);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spinnerCategory.setAdapter(adapter);
+        listObservedProducts = (ListView) findViewById(R.id.listObservedProducts);
+        List<ProductEntity> productEntityList = new ArrayList<>();
+        productEntityList = databaseManager.GetProducts();
+        listProducts.addAll(productEntityList);
+        observedProductsAdapter = new ObservedProductsAdapter(this, R.layout.observed_list_view, listProducts);
+        listObservedProducts.setAdapter(observedProductsAdapter);
+        final Spinner spinnerCategory = (Spinner) findViewById(R.id.spinnerCategory);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.content_types_array_observed, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCategory.setAdapter(adapter);
 
-            Button btnSearch = (Button) findViewById(R.id.btnSearch);
-            btnSearch.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    fillTable();
+        Button btnSearch = (Button) findViewById(R.id.btnSearch);
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String selectedCategory = spinnerCategory.getSelectedItem().toString();
+                String databaseCagtegory = "Book";
+                switch(selectedCategory){
+                    case "Gry komputerowe" : databaseCagtegory = "Game";
+                        break;
+                    case "Książki" : databaseCagtegory = "Book";
+                        break;
+                    case "Filmy" : databaseCagtegory = "Movie";
+                        break;
+
+                    default: databaseCagtegory = "All";
                 }
-            });
+                listProducts.clear();
+                try{
+                    List<ProductEntity> productEntityList = new ArrayList<>();
+                    if( !databaseCagtegory.equals("All")) {
+                        productEntityList = databaseManager.GetProducts(databaseCagtegory);
+                    } else {
+                        productEntityList = databaseManager.GetProducts();
+                    }
+                    listProducts.addAll(productEntityList);
+                }catch (Exception e){
+                    System.out.println("Brak Produktow w bazie");
+                }
+                observedProductsAdapter.notifyDataSetChanged();
+                //fillTable();
+            }
+        });
     }
 
     private void fillTable(){

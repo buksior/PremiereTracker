@@ -80,6 +80,7 @@ public class BookService {
                     book.setPremiereDate(convertDate(info.getString("publishedDate")));
                     book.setTitle(info.getString("title"));
                     book.setAuthor(info.getJSONArray("authors").get(0).toString());
+                    book.setProductType("Book");
 
                     books.add(book);
                 }
@@ -137,7 +138,7 @@ public class BookService {
                     book.setPremiereDate(convertDate(info.getString("publishedDate")));
                     book.setTitle(info.getString("title"));
                     book.setAuthor(info.getJSONArray("authors").get(0).toString());
-
+                    book.setProductType("Book");
                     books.add(book);
                 }
             }

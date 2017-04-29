@@ -52,6 +52,7 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+         final DatabaseManager manager = new DatabaseManager(this);
 
         listView = (ListView) findViewById(R.id.listView);
         listAdapter = new ProductsAdapter(this, R.layout.search_list_view, list);
@@ -78,7 +79,7 @@ public class SearchActivity extends AppCompatActivity {
                 List<Product> productEntityList = new ArrayList<>();
                 list.clear();
                 if(radioCategory.equals("Tytuł")){
-                    switch (selectedCategory) {
+                     switch (selectedCategory) {
                         case "Gry komputerowe":
                             productEntityList = searchService.findGameByTitle(editText.getText().toString());
                             list.addAll(productEntityList);

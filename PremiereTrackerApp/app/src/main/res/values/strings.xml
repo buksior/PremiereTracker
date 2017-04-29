@@ -16,6 +16,12 @@
         <item>Książki</item>
         <item>Filmy</item>
     </string-array>
+    <string-array name="content_types_array_observed">
+        <item>Wszystkie</item>
+        <item>Gry komputerowe</item>
+        <item>Książki</item>
+        <item>Filmy</item>
+    </string-array>
     <string name="start">START</string>
     <string name="days">Ile dni przed premierą chcesz otrzymywać powiadomienia?</string>
     <string name="zatwierdz">Zatwierdź</string>

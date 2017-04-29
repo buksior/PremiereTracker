@@ -20,6 +20,7 @@ public class SearchService {
             Movie movie = iter.next();
             product.setTitle(movie.getTitle());
             product.setPremiereDate(movie.getPremiereDate());
+            product.setProductType(movie.getProductType());
             movieProducts.add(product);
         }
         return movieProducts;
@@ -35,6 +36,7 @@ public class SearchService {
             Movie movie = iter.next();
             product.setTitle(movie.getTitle());
             product.setPremiereDate(movie.getPremiereDate());
+            product.setProductType(movie.getProductType());
             movieProducts.add(product);
         }
         return movieProducts;
@@ -50,6 +52,7 @@ public class SearchService {
             Book book = iter.next();
             product.setTitle(book.getTitle());
             product.setPremiereDate(book.getPremiereDate());
+            product.setProductType(book.getProductType());
             bookProducts.add(product);
         }
         return bookProducts;
@@ -65,7 +68,9 @@ public class SearchService {
             Book book = iter.next();
             product.setTitle(book.getTitle());
             product.setPremiereDate(book.getPremiereDate());
+            product.setProductType(book.getProductType());
             bookProducts.add(product);
+
         }
         return bookProducts;
     }
@@ -80,6 +85,7 @@ public class SearchService {
             Game game = iter.next();
             product.setTitle(game.getTitle());
             product.setPremiereDate(game.getPremiereDate());
+            product.setProductType(game.getProductType());
             gameProducts.add(product);
         }
         return gameProducts;
@@ -95,6 +101,7 @@ public class SearchService {
             Game game = iter.next();
             product.setTitle(game.getTitle());
             product.setPremiereDate(game.getPremiereDate());
+            product.setProductType(game.getProductType());
             gameProducts.add(product);
         }
         return gameProducts;

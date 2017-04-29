@@ -69,6 +69,7 @@ public class GameService {
                     Game game = new Game();
                     game.setPremiereDate(convertDate(info.getString("release_date")));
                     game.setTitle(info.getString("title"));
+                    game.setProductType("Game");
 
                     games.add(game);
                 }
@@ -116,6 +117,7 @@ public class GameService {
                             Game game = getGameById((int) arrayGames.get(j));
                             if (game != null) {
                                 game.setAuthor(gamesArray.getString("name"));
+                                game.setProductType("Game");
                             }
                             games.add(game);
                         }

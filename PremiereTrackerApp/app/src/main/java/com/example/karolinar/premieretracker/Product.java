@@ -18,9 +18,21 @@ public class Product {
         this.isFavorite = isFavorite;
     }
 
+
+
     protected Date premiereDate;
     private String title;
     private boolean isFavorite;
+
+    public String getProductType() {
+        return ProductType;
+    }
+
+    public void setProductType(String productType) {
+        ProductType = productType;
+    }
+
+    private String ProductType;
 
     public String getTitle() {
         return title;

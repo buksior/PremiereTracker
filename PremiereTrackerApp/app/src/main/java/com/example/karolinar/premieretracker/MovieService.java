@@ -69,6 +69,7 @@ public class MovieService {
                     Movie movie = new Movie();
                     movie.setPremiereDate(convertDate(info.getString("release_date")));
                     movie.setTitle(info.getString("title"));
+                    movie.setProductType("Movie");
 
         if(movie.getPremiereDate().after(today) ){
 
@@ -153,6 +154,7 @@ public class MovieService {
                     movie.setTitle(info.getString("title"));
                     movie.setDescription(info.getString("job"));
                     movie.setAuthor(getPersonName(idDirector));
+                    movie.setProductType("Movie");
 
                    if(movie.getPremiereDate().after(today) ) {
                        movies.add(movie);

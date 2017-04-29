@@ -94,7 +94,7 @@ public class ProductsAdapter extends ArrayAdapter<Product> {
                     DatabaseManager manager = new DatabaseManager(context);
                     ProductEntity productEntity = new ProductEntity();
                     productEntity.Name = p.getTitle();
-                    productEntity.ProductType = p.getClass().getSimpleName();
+                    productEntity.ProductType = p.getProductType();
                     productEntity.Premiere = p.getPremiereDate();
                     productEntity.Creator = ""; //to sie naprawi
                     productEntity.Description = ""; //to tez
