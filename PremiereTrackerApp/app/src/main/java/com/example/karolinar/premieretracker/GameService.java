@@ -10,7 +10,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -18,7 +17,6 @@ import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -44,13 +42,15 @@ public class GameService {
 
     public List<Game> GetGamesWhichContainTheTextInTitle(String text) {
         List<Game> games = new LinkedList<Game>();
+        String address = "https://igdbcom-internet-game-database-v1.p.mashape.com/games/?fields=first_release_date%2Cname&limit=50&offset=0&order=release_dates.date%3Adesc&search=";
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         try {
 
-            URL url = new URL("" + URLEncoder.encode(text, "UTF-8"));
+            URL url = new URL(address + URLEncoder.encode(text, "UTF-8"));
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestProperty("X-Mashape-Key", "CT53butpo9mshilIIVZs6Bf1LS4Fp154lhwjsnJ4kNfjeWNNIP");
             urlConnection.setRequestProperty("Accept", "application/json");
             try {
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
@@ -61,17 +61,10 @@ public class GameService {
                 }
                 bufferedReader.close();
 
-                JSONObject jsonObj = new JSONObject(stringBuilder.toString());
-                JSONArray arrayMovies = jsonObj.getJSONArray("results");
-                for (int i = 0; i < arrayMovies.length(); i++) {
-                    JSONObject info = arrayMovies.getJSONObject(i);
-
-                    Game game = new Game();
-                    game.setPremiereDate(convertDate(info.getString("release_date")));
-                    game.setTitle(info.getString("title"));
-                    game.setProductType("Game");
-
-                    games.add(game);
+                ObjectMapper mapper = new ObjectMapper();
+                games = mapper.readValue(stringBuilder.toString(), new TypeReference<List<Game>>(){});
+                for(Game g : games){
+                    g.setProductType("Game");
                 }
             }
             finally{
@@ -105,9 +98,7 @@ public class GameService {
                     stringBuilder.append(line).append("\n");
                 }
                 bufferedReader.close();
-                Log.i("JSON", stringBuilder.toString());
 
-                //JSONObject jsonObj = new JSONObject(stringBuilder.toString());
                 JSONArray arrayCompanies = new JSONArray(stringBuilder.toString());
                 for (int i = 0; i < arrayCompanies.length(); i++) {
                     JSONObject gamesArray = arrayCompanies.getJSONObject(i);
