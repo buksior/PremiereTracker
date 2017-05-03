@@ -44,7 +44,7 @@ public class SearchService {
 
     public List<Product> findBookByTitle(String title){
         BookService bookService = new BookService();
-        List<Book> booksList = bookService.GetBooksWhichContainTheTextInTitle(title);
+        List<Book> booksList = bookService.GetBooksBeforePremiereWhichContainTheTextInTitle(title);
         final List<Product> bookProducts = new ArrayList<>();
 
         for (Iterator<Book> iter = booksList.iterator(); iter.hasNext(); ) {
@@ -60,7 +60,7 @@ public class SearchService {
 
     public List<Product> findBookByAuthor(String author){
         BookService bookService = new BookService();
-        List<Book> booksList = bookService.GetBooksWhichContainTheTextInAuthor(author);
+        List<Book> booksList = bookService.GetBooksBeforePremiereWhichContainTheTextInAuthor(author);
         final List<Product> bookProducts = new ArrayList<>();
 
         for (Iterator<Book> iter = booksList.iterator(); iter.hasNext(); ) {

@@ -38,8 +38,8 @@ public class BookService {
 
     private int numberOfBooksPerRequestLimit = 10;
 
-    public List<Book> GetBooksByTitle(String title) {
-        List<Book> books = GetBooksWhichContainTheTextInTitle(title);
+    public List<Book> GetBooksBeforePremiereByTitle(String title) {
+        List<Book> books = GetBooksBeforePremiereWhichContainTheTextInTitle(title);
 
         for (Iterator<Book> iter = books.iterator(); iter.hasNext(); ) {
             Book book = iter.next();
@@ -51,14 +51,14 @@ public class BookService {
         return books;
     }
 
-    public List<Book> GetBooksWhichContainTheTextInTitle(String text) {
+    public List<Book> GetBooksBeforePremiereWhichContainTheTextInTitle(String text) {
         List<Book> books = new LinkedList<Book>();
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         try {
             URL url = new URL("https://www.googleapis.com/books/v1/volumes?q=intitle:" + URLEncoder.encode(text, "UTF-8")+ "&maxResults="
-                    + numberOfBooksPerRequestLimit);
+                    + numberOfBooksPerRequestLimit + "&orderBy=newest");
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestProperty("Accept", "application/json");
             try {
@@ -94,7 +94,9 @@ public class BookService {
 
                     if(info.has("publishedDate")) {
                         book.setPremiereDate(convertDate(info.getString("publishedDate")));
-                        books.add(book);
+                        if(book.getPremiereDate().after(new Date())) {
+                            books.add(book);
+                        }
                     }
                 }
             }
@@ -109,8 +111,8 @@ public class BookService {
         return books;
     }
 
-    public List<Book> GetBooksByAuthor(String author) {
-        List<Book> books = GetBooksWhichContainTheTextInAuthor(author);
+    public List<Book> GetBooksBeforePremiereByAuthor(String author) {
+        List<Book> books = GetBooksBeforePremiereWhichContainTheTextInAuthor(author);
 
         for (Iterator<Book> iter = books.iterator(); iter.hasNext(); ) {
             Book book = iter.next();
@@ -122,14 +124,14 @@ public class BookService {
         return books;
     }
 
-    public List<Book> GetBooksWhichContainTheTextInAuthor(String text) {
+    public List<Book> GetBooksBeforePremiereWhichContainTheTextInAuthor(String text) {
         List<Book> books = new LinkedList<Book>();
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         try {
             URL url = new URL("https://www.googleapis.com/books/v1/volumes?q=inauthor:" + URLEncoder.encode(text, "UTF-8")
-                    + "&maxResults=" + numberOfBooksPerRequestLimit);
+                    + "&maxResults=" + numberOfBooksPerRequestLimit + "&orderBy=newest");
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestProperty("Accept", "application/json");
             try {
@@ -160,7 +162,9 @@ public class BookService {
 
                     if(info.has("publishedDate")) {
                         book.setPremiereDate(convertDate(info.getString("publishedDate")));
-                        books.add(book);
+                        if(book.getPremiereDate().after(new Date())) {
+                            books.add(book);
+                        }
                     }
                 }
             }
