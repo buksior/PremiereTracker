@@ -33,4 +33,12 @@ public class Book extends Product {
     public void setAuthor(String author) {
         this.author = author;
     }
+
+    private String description;
+
+    public String getDescription() { return description; }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

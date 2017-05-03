@@ -77,12 +77,25 @@ public class BookService {
                     JSONObject info = jsonBook.getJSONObject("volumeInfo");
 
                     Book book = new Book();
-                    book.setPremiereDate(convertDate(info.getString("publishedDate")));
                     book.setTitle(info.getString("title"));
-                    book.setAuthor(info.getJSONArray("authors").get(0).toString());
+                    if(info.has("description")) {
+                        book.setDescription(info.getString("description"));
+                    }
+                    else {
+                        book.setDescription("");
+                    }
+                    if(info.has("authors")) {
+                        book.setAuthor(info.getJSONArray("authors").get(0).toString());
+                    }
+                    else {
+                        book.setAuthor("");
+                    }
                     book.setProductType("Book");
 
-                    books.add(book);
+                    if(info.has("publishedDate")) {
+                        book.setPremiereDate(convertDate(info.getString("publishedDate")));
+                        books.add(book);
+                    }
                 }
             }
             finally{
@@ -135,11 +148,20 @@ public class BookService {
                     JSONObject info = jsonBook.getJSONObject("volumeInfo");
 
                     Book book = new Book();
-                    book.setPremiereDate(convertDate(info.getString("publishedDate")));
                     book.setTitle(info.getString("title"));
+                    if(info.has("description")) {
+                        book.setDescription(info.getString("description"));
+                    }
+                    else {
+                        book.setDescription("");
+                    }
                     book.setAuthor(info.getJSONArray("authors").get(0).toString());
                     book.setProductType("Book");
-                    books.add(book);
+
+                    if(info.has("publishedDate")) {
+                        book.setPremiereDate(convertDate(info.getString("publishedDate")));
+                        books.add(book);
+                    }
                 }
             }
             finally{
