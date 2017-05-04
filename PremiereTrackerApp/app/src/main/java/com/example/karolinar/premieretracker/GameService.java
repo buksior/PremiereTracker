@@ -124,8 +124,6 @@ public class GameService {
                             }
                         }
                     }
-                    //game.setPremiereDate(convertDate(info.getString("release_date")));
-                    //game.setTitle(info.getString("title"));
                 }
             }
             finally{
