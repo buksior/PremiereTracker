@@ -42,7 +42,7 @@ public class GameService {
 
     public List<Game> GetGamesWhichContainTheTextInTitle(String text) {
         List<Game> games = new LinkedList<Game>();
-        String address = "https://igdbcom-internet-game-database-v1.p.mashape.com/games/?fields=first_release_date%2Cname&limit=50&offset=0&order=release_dates.date%3Adesc&search=";
+        String address = "https://igdbcom-internet-game-database-v1.p.mashape.com/games/?fields=first_release_date%2Cname%2Cdevelopers%2Csummary&limit=50&offset=0&order=release_dates.date%3Adesc&search=";
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -63,8 +63,19 @@ public class GameService {
 
                 ObjectMapper mapper = new ObjectMapper();
                 games = mapper.readValue(stringBuilder.toString(), new TypeReference<List<Game>>(){});
-                for(Game g : games){
-                    g.setProductType("Game");
+                Iterator<Game> iterator = games.iterator();
+                while(iterator.hasNext()){
+                    Game game = iterator.next();
+                    if(game.getPremiereDate().before(new Date())){
+                        iterator.remove();
+                    }
+                    else{
+                        if(game.getDevelopers().size() > 0){
+                            Integer companyId = (Integer)game.getDevelopers().get(0);
+                            game.setAuthor(getCompanyNameById(companyId));
+                        }
+                        game.setProductType("Game");
+                    }
                 }
             }
             finally{
@@ -79,7 +90,7 @@ public class GameService {
     }
 
     public List<Game> getGamesWhichContainsTheTextInAuthor(String text){
-        String address = "https://igdbcom-internet-game-database-v1.p.mashape.com/companies/?fields=*&limit=10&offset=0&search=";
+        String address = "https://igdbcom-internet-game-database-v1.p.mashape.com/companies/?fields=developed&limit=10&offset=0&search=";
         List<Game> games = new LinkedList<Game>();
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -106,11 +117,11 @@ public class GameService {
                         JSONArray arrayGames = gamesArray.getJSONArray("developed");
                         for (int j = 0; j < arrayGames.length(); j++) {
                             Game game = getGameById((int) arrayGames.get(j));
-                            if (game != null) {
+                            if (game != null && game.getPremiereDate().after(new Date())) {
                                 game.setAuthor(gamesArray.getString("name"));
                                 game.setProductType("Game");
+                                games.add(game);
                             }
-                            games.add(game);
                         }
                     }
                     //game.setPremiereDate(convertDate(info.getString("release_date")));
@@ -133,7 +144,7 @@ public class GameService {
                 .permitAll().build();
         StrictMode.setThreadPolicy(policy);
         try {
-            URL url = new URL("https://igdbcom-internet-game-database-v1.p.mashape.com/games/" + id + "?fields=first_release_date%2Cname&limit=50&offset=0&order=release_dates.date%3Adesc");
+            URL url = new URL("https://igdbcom-internet-game-database-v1.p.mashape.com/games/" + id + "?fields=first_release_date%2Cname%2Cdevelopers%2Csummary&limit=50&offset=0&order=release_dates.date%3Adesc");
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestProperty("X-Mashape-Key", "CT53butpo9mshilIIVZs6Bf1LS4Fp154lhwjsnJ4kNfjeWNNIP");
             urlConnection.setRequestProperty("Accept", "application/json");
@@ -157,6 +168,40 @@ public class GameService {
             Log.e("ERROR", e.getMessage(), e);
         }
         return null;
+    }
+
+    private String getCompanyNameById(int companyId){
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                .permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        try {
+            URL url = new URL("https://igdbcom-internet-game-database-v1.p.mashape.com/companies/" + companyId + "?fields=name&limit=10&offset=0");
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestProperty("X-Mashape-Key", "CT53butpo9mshilIIVZs6Bf1LS4Fp154lhwjsnJ4kNfjeWNNIP");
+            urlConnection.setRequestProperty("Accept", "application/json");
+            try {
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                StringBuilder stringBuilder = new StringBuilder();
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    stringBuilder.append(line).append("\n");
+                }
+                bufferedReader.close();
+                JSONArray arrayBooks = new JSONArray(stringBuilder.toString());
+                JSONObject object = arrayBooks.getJSONObject(0);
+                return object.getString("name");
+                //ObjectMapper mapper = new ObjectMapper();
+                //List<Game> games = mapper.readValue(stringBuilder.toString(), new TypeReference<List<Game>>(){});
+                //return games.get(0);
+            }
+            finally{
+                urlConnection.disconnect();
+            }
+        }
+        catch(Exception e) {
+            Log.e("ERROR", e.getMessage(), e);
+        }
+        return "";
     }
 
     private Date convertDate(String stringDate){
