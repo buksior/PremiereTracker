@@ -49,7 +49,6 @@ public class ObservedProductsAdapter extends ArrayAdapter<ProductEntity> {
         Log.d(TAG, "At position " + position + ": " + product.toString());
 
         // init drawable res here because I'm too lazy to type android.R.etc every time
-        @DrawableRes final int dialogInfoId = android.R.drawable.ic_dialog_info;
         @DrawableRes final int deleteId = android.R.drawable.ic_delete;
 
         // create view if it doesn't exist
@@ -61,7 +60,6 @@ public class ObservedProductsAdapter extends ArrayAdapter<ProductEntity> {
         // get interface views
         TextView title = (TextView) row.findViewById(R.id.col1);
         final TextView date = (TextView) row.findViewById(R.id.col2);
-        final ImageButton btnInfo = (ImageButton) row.findViewById(R.id.btnInfo);
         final ImageButton btnDelete = (ImageButton) row.findViewById(R.id.btnDelete);
 
         // set appropriate values from product object

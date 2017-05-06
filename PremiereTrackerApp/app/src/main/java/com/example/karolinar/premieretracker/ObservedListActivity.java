@@ -1,6 +1,7 @@
 package com.example.karolinar.premieretracker;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -55,6 +57,19 @@ public class ObservedListActivity extends AppCompatActivity {
                 R.array.content_types_array_observed, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCategory.setAdapter(adapter);
+
+
+        listObservedProducts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ProductEntity productEntity = (ProductEntity) parent.getItemAtPosition(position);
+                Intent intent = new Intent(view.getContext(),DetailsActivity.class);
+                intent.putExtra("PRODUCT_ID", Integer.toString(productEntity.Id));
+             //   startActivityForResult(intent,(int)id);
+               startActivity(intent);
+
+            }
+        });
 
         Button btnSearch = (Button) findViewById(R.id.btnSearch);
         btnSearch.setOnClickListener(new View.OnClickListener() {
