@@ -159,6 +159,35 @@ public class DatabaseManager extends SQLiteOpenHelper {
         return false;
     }
 
+    public ProductEntity getProductById(String id){
+
+        String[] columns = {"Id", "Name", "Creator", "Description", "Premiere", "ProductType"};
+        SQLiteDatabase db = getReadableDatabase();
+     //   Cursor cursor = db.rawQuery("Select * from Products WHERE id == "+id, columns);
+        db.query("Products", columns, null, null, null, null, null);
+
+       // Cursor  cursor = db.rawQuery("Select * from Products WHERE id = "+id,null);
+        Cursor cursor = db.query("Products",columns,"id = "+id, null,null,null ,null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+
+        ProductEntity productEntity = new ProductEntity();
+        Integer a = cursor.getColumnCount();
+        productEntity.Id = cursor.getInt(0);
+        productEntity.Name = cursor.getString(1);
+        productEntity.Creator = cursor.getString(2);
+        productEntity.Description = cursor.getString(3);
+        productEntity.Premiere = new Date(cursor.getLong(4));
+        productEntity.ProductType = cursor.getString(5);
+
+
+        cursor.close();
+        db.close();
+
+        return productEntity;
+    }
+
     public void RemoveProduct(int id) {
         SQLiteDatabase db = getWritableDatabase();
         String[] arguments = {"" + id};
