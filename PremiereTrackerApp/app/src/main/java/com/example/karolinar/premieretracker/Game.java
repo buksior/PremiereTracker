@@ -11,21 +11,19 @@ import java.util.List;
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Game extends Product{
+public class Game extends Product {
 
     @JsonProperty("name")
     @Override
-    public String getTitle(){
+    public String getTitle() {
         return super.getTitle();
     }
 
     @JsonProperty("first_release_date")
     @Override
-    public Date getPremiereDate(){
+    public Date getPremiereDate() {
         return super.getPremiereDate();
     }
-
-    private String author;
 
     @JsonProperty("developers")
     private List<Object> developers;
@@ -41,19 +39,13 @@ public class Game extends Product{
     @JsonProperty("summary")
     private String description;
 
+    @Override
     public String getDescription() {
         return description;
     }
 
+    @Override
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
     }
 }

@@ -32,7 +32,7 @@ public class DetailsActivity extends AppCompatActivity {
         TextView txtViewPremiereValue = (TextView) findViewById(R.id.txtViewPremiereDateValue);
 
         String productId = getIntent().getStringExtra("PRODUCT_ID");
-        dbManager=new DatabaseManager(this);
+        dbManager = new DatabaseManager(this);
         ProductEntity productEntity = dbManager.getProductById(productId);
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -41,17 +41,5 @@ public class DetailsActivity extends AppCompatActivity {
         txtViewCreatorValue.setText(productEntity.Creator);
         txtViewPremiereValue.setText(format.format(productEntity.Premiere));
         txtViewDescriptionValue.setText(productEntity.Description);
-
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
     }
-
 }

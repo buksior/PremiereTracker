@@ -65,6 +65,26 @@ public class Product {
                 + " (" + (this.isFavorite ? "fav" : "NOT fav") + ")";
     }
 
+    private String author;
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    private String description;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     /*public boolean exists(){
         ProductEntity entity = new ProductEntity();
         entity.Description = "";

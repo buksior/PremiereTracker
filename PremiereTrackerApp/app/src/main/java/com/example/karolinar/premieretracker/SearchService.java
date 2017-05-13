@@ -21,6 +21,8 @@ public class SearchService {
             product.setTitle(movie.getTitle());
             product.setPremiereDate(movie.getPremiereDate());
             product.setProductType(movie.getProductType());
+            product.setAuthor(movie.getAuthor());
+            product.setDescription(movie.getDescription());
             movieProducts.add(product);
         }
         return movieProducts;
@@ -37,6 +39,8 @@ public class SearchService {
             product.setTitle(movie.getTitle());
             product.setPremiereDate(movie.getPremiereDate());
             product.setProductType(movie.getProductType());
+            product.setAuthor(movie.getAuthor());
+            product.setDescription(movie.getDescription());
             movieProducts.add(product);
         }
         return movieProducts;
@@ -53,6 +57,8 @@ public class SearchService {
             product.setTitle(book.getTitle());
             product.setPremiereDate(book.getPremiereDate());
             product.setProductType(book.getProductType());
+            product.setAuthor(book.getAuthor());
+            product.setDescription(book.getDescription());
             bookProducts.add(product);
         }
         return bookProducts;
@@ -69,6 +75,8 @@ public class SearchService {
             product.setTitle(book.getTitle());
             product.setPremiereDate(book.getPremiereDate());
             product.setProductType(book.getProductType());
+            product.setAuthor(book.getAuthor());
+            product.setDescription(book.getDescription());
             bookProducts.add(product);
 
         }
@@ -86,6 +94,8 @@ public class SearchService {
             product.setTitle(game.getTitle());
             product.setPremiereDate(game.getPremiereDate());
             product.setProductType(game.getProductType());
+            product.setAuthor(game.getAuthor());
+            product.setDescription(game.getDescription());
             gameProducts.add(product);
         }
         return gameProducts;
@@ -102,6 +112,8 @@ public class SearchService {
             product.setTitle(game.getTitle());
             product.setPremiereDate(game.getPremiereDate());
             product.setProductType(game.getProductType());
+            product.setAuthor(game.getAuthor());
+            product.setDescription(game.getDescription());
             gameProducts.add(product);
         }
         return gameProducts;

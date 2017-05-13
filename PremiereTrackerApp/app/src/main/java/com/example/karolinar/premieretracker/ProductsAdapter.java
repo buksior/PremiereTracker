@@ -81,11 +81,27 @@ public class ProductsAdapter extends ArrayAdapter<Product> {
                     productEntity.Name = p.getTitle();
                     productEntity.ProductType = p.getProductType();
                     productEntity.Premiere = p.getPremiereDate();
-                    productEntity.Creator = ""; //to sie naprawi
-                    productEntity.Description = ""; //to tez
+                    if(p.getAuthor() == null)
+                    {
+                        productEntity.Creator = "";
+                    }
+                    else
+                    {
+                        productEntity.Creator = p.getAuthor();
+                    }
+                    if(p.getDescription() == null)
+                    {
+                        productEntity.Description = "";
+                    }
+                    else
+                    {
+                        productEntity.Description = p.getDescription();
+                    }
+
                     if(!manager.existsProduct(productEntity)){
                         manager.AddProduct(productEntity);
                     }
+
                     List<ProductEntity> list = manager.GetProducts();
                 }
 
