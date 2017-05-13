@@ -37,7 +37,26 @@ public class DetailsActivity extends AppCompatActivity {
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
         txtViewNameValue.setText(productEntity.Name);
-        txtViewCategoryValue.setText(productEntity.ProductType);
+
+        switch (productEntity.ProductType)
+        {
+            case "Movie":
+            {
+                txtViewCategoryValue.setText("Film");
+                break;
+            }
+            case "Game":
+            {
+                txtViewCategoryValue.setText("Gra komputerowa");
+                break;
+            }
+            case "Book":
+            {
+                txtViewCategoryValue.setText("Książka");
+                break;
+            }
+        }
+
         txtViewCreatorValue.setText(productEntity.Creator);
         txtViewPremiereValue.setText(format.format(productEntity.Premiere));
         txtViewDescriptionValue.setText(productEntity.Description);
