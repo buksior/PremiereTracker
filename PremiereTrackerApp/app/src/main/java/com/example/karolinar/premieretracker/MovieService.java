@@ -67,14 +67,19 @@ public class MovieService {
                     JSONObject info = jsonMovie;
 
                     Movie movie = new Movie();
-                    movie.setPremiereDate(convertDate(info.getString("release_date")));
-                    movie.setTitle(info.getString("title"));
-                    movie.setProductType("Movie");
 
-        if(movie.getPremiereDate().after(today) ){
+                        movie.setPremiereDate(convertDate(info.getString("release_date")));
 
-            movies.add(movie);
-        }
+                        movie.setTitle(info.getString("title"));
+                        movie.setDescription(info.getString("overview"));
+                        movie.setProductType("Movie");
+
+                    String idMovie=info.getString("id");
+                   movie.setAuthor(getDirectorName(idMovie));
+
+                    if(movie.getPremiereDate().after(today) ) {
+                        movies.add(movie);
+                    }
 
                }
             }
@@ -152,7 +157,7 @@ public class MovieService {
                 if(jobType.equals("Director")){
                     movie.setPremiereDate(convertDate(info.getString("release_date")));
                     movie.setTitle(info.getString("title"));
-                    movie.setDescription(info.getString("job"));
+                    movie.setDescription(getMovieDescription(info.getString("title")));
                     movie.setAuthor(getPersonName(idDirector));
                     movie.setProductType("Movie");
 
@@ -226,7 +231,7 @@ public class MovieService {
 
     public String getPersonName(String personId) {
 
-        String getPersonName="";
+        String PersonName="";
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -247,7 +252,7 @@ public class MovieService {
                 bufferedReader.close();
 
                 JSONObject jsonObj = new JSONObject(stringBuilder.toString());
-                getPersonName = jsonObj.getString("name");
+                PersonName = jsonObj.getString("name");
             }
             finally{
                 urlConnection.disconnect();
@@ -256,9 +261,102 @@ public class MovieService {
         catch(Exception e) {
             Log.e("ERROR", e.getMessage(), e);
         }
-        return getPersonName;
+        return PersonName;
 
     }//
+
+    public String getDirectorName(String movieId) {
+
+        String directorName="";
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        try {
+
+            URL url = new URL("https://api.themoviedb.org/3/movie/" + URLEncoder.encode(movieId, "UTF-8")+
+                    "/credits?api_key=ecf192cdd9fe2e8ff5a5699aeb9e12a2" );
+
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestProperty("Accept", "application/json");
+            try {
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                StringBuilder stringBuilder = new StringBuilder();
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    stringBuilder.append(line).append("\n");
+                }
+                bufferedReader.close();
+
+                JSONObject jsonObj = new JSONObject(stringBuilder.toString());
+                JSONArray arrayMovies = jsonObj.getJSONArray("crew");
+                for (int i = 0; i < arrayMovies.length(); i++) {
+                    JSONObject jsonMovie = arrayMovies.getJSONObject(i);
+                    JSONObject info = jsonMovie;
+
+                    Movie movie = new Movie();
+
+                    String jobType=info.getString("job");
+
+                    if(jobType.equals("Director")){
+                         directorName=info.getString("name");
+
+                    }
+
+                }
+            }
+            finally{
+                urlConnection.disconnect();
+            }
+        }
+        catch(Exception e) {
+            Log.e("ERROR", e.getMessage(), e);
+        }
+        return directorName;
+
+    }//
+
+
+    public String getMovieDescription(String text) {
+        String movieDescription="";
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        try {
+
+            URL url = new URL("https://api.themoviedb.org/3/search/movie?api_key=ecf192cdd9fe2e8ff5a5699aeb9e12a2&query=" + URLEncoder.encode(text, "UTF-8"));
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestProperty("Accept", "application/json");
+            try {
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                StringBuilder stringBuilder = new StringBuilder();
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    stringBuilder.append(line).append("\n");
+                }
+                bufferedReader.close();
+
+                JSONObject jsonObj = new JSONObject(stringBuilder.toString());
+                JSONArray arrayMovies = jsonObj.getJSONArray("results");
+                for (int i = 0; i < arrayMovies.length(); i++) {
+                    JSONObject jsonMovie = arrayMovies.getJSONObject(i);
+                    JSONObject info = jsonMovie;
+
+                    movieDescription=info.getString("overview");
+
+                }
+            }
+            finally{
+                urlConnection.disconnect();
+            }
+        }
+        catch(Exception e) {
+            Log.e("ERROR", e.getMessage(), e);
+        }
+
+
+
+        return movieDescription;
+    }
 
     private Date convertDate(String stringDate){
         Date date = null;
@@ -270,12 +368,12 @@ public class MovieService {
                     break;
                 }
                 case 7:{
-                    DateFormat format = new SimpleDateFormat("yyyy-mm");
+                    DateFormat format = new SimpleDateFormat("yyyy-MM");
                     date = format.parse(stringDate);
                     break;
                 }
                 case 10:{
-                    DateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+                    DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                     date = format.parse(stringDate);
                     break;
                 }
@@ -286,4 +384,9 @@ public class MovieService {
         }
         return date;
     }
+
+
+
+
+
 }
