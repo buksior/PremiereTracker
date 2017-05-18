@@ -32,7 +32,7 @@ public class ApproachingPremiereNotificationManager {
 
     public void showNotyficationDaysBerforePremiere(int days) {
         String message = "Zbliża się premiera:";
-        String title = "Już za 7 dni premiera!";
+        String title = "Już za " + days +" dni premiera!";
         showNotyficationDay(message, title, days);
     }
 

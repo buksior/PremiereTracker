@@ -43,8 +43,6 @@ public class ObservedListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_observed_list);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         listObservedProducts = (ListView) findViewById(R.id.listObservedProducts);
         List<ProductEntity> productEntityList = new ArrayList<>();

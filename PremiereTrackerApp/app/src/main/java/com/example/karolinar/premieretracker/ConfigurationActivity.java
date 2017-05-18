@@ -17,7 +17,7 @@ public class ConfigurationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configuration);
 
-        SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(SHARED, MODE_PRIVATE);
         final EditText days = (EditText) findViewById(R.id.daysInput);
         days.setFilters(new InputFilter[]{new NumberValueFilter(1,90)});
         if(sharedPreferences.contains(SHARED)){
@@ -28,7 +28,7 @@ public class ConfigurationActivity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
+                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(SHARED, MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putInt(SHARED, Integer.parseInt(days.getText().toString()));
                 editor.apply();

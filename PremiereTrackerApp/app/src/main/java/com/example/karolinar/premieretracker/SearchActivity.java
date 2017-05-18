@@ -29,9 +29,7 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-         final DatabaseManager manager = new DatabaseManager(this);
+        final DatabaseManager manager = new DatabaseManager(this);
 
         listView = (ListView) findViewById(R.id.listView);
         listAdapter = new ProductsAdapter(this, R.layout.search_list_view, list);
