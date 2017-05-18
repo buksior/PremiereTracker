@@ -1,19 +1,12 @@
 package com.example.karolinar.premieretracker;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
+import android.text.method.ScrollingMovementMethod;
 import android.widget.TextView;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-
-import static android.R.attr.format;
 
 public class DetailsActivity extends AppCompatActivity {
 
@@ -31,6 +24,8 @@ public class DetailsActivity extends AppCompatActivity {
         TextView txtViewDescriptionValue = (TextView) findViewById(R.id.txtViewDescriptionValue);
         TextView txtViewPremiereValue = (TextView) findViewById(R.id.txtViewPremiereDateValue);
 
+
+        txtViewDescriptionValue.setMovementMethod(new ScrollingMovementMethod());
         String productId = getIntent().getStringExtra("PRODUCT_ID");
         dbManager = new DatabaseManager(this);
         ProductEntity productEntity = dbManager.getProductById(productId);
