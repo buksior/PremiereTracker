@@ -28,6 +28,7 @@
             android:id="@+id/txtViewInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="casual"
             android:text="Informacje o produkcie"
             android:textAlignment="center"
             android:textSize="30sp"
@@ -44,6 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="casual"
             android:text="Nazwa"
             android:textSize="20sp" />
 
@@ -58,6 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="casual"
             android:paddingRight="10dp"
             android:textAlignment="center"
             android:textSize="20sp"
@@ -74,6 +77,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="casual"
             android:text="Kategoria"
             android:textSize="20sp" />
 
@@ -88,9 +92,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="casual"
             android:paddingRight="10dp"
             android:textAlignment="center"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <Space
             android:layout_width="match_parent"
@@ -103,6 +109,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="casual"
             android:text="Data premiery"
             android:textSize="20sp" />
 
@@ -117,9 +124,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="casual"
             android:paddingRight="10dp"
             android:textAlignment="center"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <Space
             android:layout_width="match_parent"
@@ -132,6 +141,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="casual"
             android:text="Twórca"
             android:textSize="20sp" />
 
@@ -146,9 +156,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="casual"
             android:paddingRight="10dp"
             android:textAlignment="center"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <Space
             android:layout_width="match_parent"
@@ -161,6 +173,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="casual"
             android:text="Opis"
             android:textSize="20sp" />
 
@@ -177,6 +190,7 @@
             android:layout_gravity="center_vertical|right"
             android:layout_weight="1"
             android:fadeScrollbars="true"
+            android:fontFamily="casual"
             android:isScrollContainer="true"
             android:lines="6"
             android:nestedScrollingEnabled="true"
@@ -186,6 +200,7 @@
             android:singleLine="false"
             android:textAlignment="gravity"
             android:textSize="14sp"
+            android:textStyle="bold"
             android:verticalScrollbarPosition="right" />
 
 

@@ -51,10 +51,14 @@
                     style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorPrimary"
+                    android:background="@color/colorBtn"
+                    android:fontFamily="casual"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
                     android:foregroundTint="@android:color/holo_green_dark"
                     android:text="Wyszukaj"
-                    android:textColorLink="@android:color/holo_green_dark" />
+                    android:textColorLink="@android:color/holo_green_dark"
+                     />
 
                 <Space
                     android:layout_width="match_parent"
@@ -65,7 +69,10 @@
                     android:id="@+id/btnObserved"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorPrimary"
+                    android:background="@color/colorBtn"
+                    android:fontFamily="casual"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
                     android:text="Lista Obserwowanych"
                     android:textColor="@android:color/background_light" />
 
@@ -78,7 +85,10 @@
                     android:id="@+id/btnContact"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorPrimary"
+                    android:background="@color/colorBtn"
+                    android:fontFamily="casual"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
                     android:text="Kontakt"
                     android:textColor="@android:color/background_light" />
 
@@ -91,7 +101,10 @@
                     android:id="@+id/btnAbout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorPrimary"
+                    android:background="@color/colorBtn"
+                    android:fontFamily="casual"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
                     android:text="O aplikacji"
                     android:textColor="@android:color/background_light" />
 
@@ -104,7 +117,10 @@
                     android:id="@+id/btnConfig"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorPrimary"
+                    android:background="@color/colorBtn"
+                    android:fontFamily="casual"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
                     android:text="Ustawienia"
                     android:textColor="@android:color/background_light" />
 
@@ -117,7 +133,10 @@
                     android:id="@+id/btnCreateNotification"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorPrimary"
+                    android:background="@color/colorBtn"
+                    android:fontFamily="casual"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
                     android:text="Test Notyfikacji"
                     android:textColor="@android:color/background_light" />
 

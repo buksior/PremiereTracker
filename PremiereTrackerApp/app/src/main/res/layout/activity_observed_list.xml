@@ -44,9 +44,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="casual"
             android:text="Obserwowane Produkty"
             android:textAlignment="center"
-            android:textSize="30sp"
+            android:textAllCaps="true"
+            android:textSize="24sp"
             android:textStyle="bold" />
 
         <Space
@@ -71,9 +73,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="casual"
                     android:text="Kategoria"
                     android:textAlignment="center"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
 
                 <Spinner
                     android:id="@+id/spinnerCategory"
@@ -108,10 +112,13 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.70"
-                android:background="@android:color/holo_green_dark"
+                android:background="@color/colorBtn"
+                android:fontFamily="casual"
                 android:foregroundTint="@android:color/holo_green_dark"
                 android:text="Pokaż"
-                android:textColorLink="@android:color/holo_green_dark" />
+                android:textColorLink="@android:color/holo_green_dark"
+                android:textSize="17sp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="0dp"

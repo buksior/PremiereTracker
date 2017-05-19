@@ -2,7 +2,6 @@ package com.example.karolinar.premieretracker;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -46,6 +45,7 @@ public class SearchActivity extends AppCompatActivity {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(SearchActivity.this.getApplicationContext(), "Wyszukiwanie...", Toast.LENGTH_SHORT).show();
                 // get selected radio button from radioGroup
                 int selectedId = radioGroup.getCheckedRadioButtonId();
                 // find the radiobutton by returned id
@@ -86,7 +86,6 @@ public class SearchActivity extends AppCompatActivity {
                             break;
                     }
                 }
-
                 listAdapter.notifyDataSetChanged();
 
                 if(list.size()==0){

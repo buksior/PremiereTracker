@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:background="@android:color/background_dark"
+        android:fontFamily="casual"
         android:text="START"
         android:textColor="@android:color/background_light"
         android:textSize="30sp"

@@ -9,8 +9,8 @@ import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.NotificationCompat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -91,8 +91,11 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                createNotification("Harry Potter","10-08-2019");
+                createNotification("Wonder Woman","2017-10-10");
 
+                // notyfikacje dla zmiany dat premiery produktów z bazy
+           //     ModificationPremiereDate mpd= new ModificationPremiereDate();
+         //       mpd.checkPremierDate();
 
             }
         });
@@ -108,26 +111,26 @@ public class MenuActivity extends AppCompatActivity {
     }
 
 
-    public void createNotification(String productName, String newPremiereDate) {
+   public void createNotification(String productName, String newPremiereDate) {
         Intent intent = new Intent(this, ObservedListActivity.class);
         PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, 0);
         Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.logo);
 
 
         Notification noti = new NotificationCompat.Builder(this)
-                .setContentTitle("Zmiana terminu premiery!")
+               .setContentTitle("Zmiana terminu premiery!")
                 .setContentText("Produkt: "+productName + " nowa data " + newPremiereDate )
                 .setSmallIcon(R.drawable.logo)
                 .setLargeIcon(icon)
                 .setAutoCancel(true)
-                .setContentIntent(pIntent)
+             .setContentIntent(pIntent)
                 .build();
-
-
 
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.notify(0, noti);
+
+
     }
 
 }

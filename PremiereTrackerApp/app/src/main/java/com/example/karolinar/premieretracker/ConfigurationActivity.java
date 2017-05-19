@@ -1,12 +1,13 @@
 package com.example.karolinar.premieretracker;
 
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.InputFilter;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class ConfigurationActivity extends AppCompatActivity {
 
@@ -32,6 +33,7 @@ public class ConfigurationActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putInt(SHARED, Integer.parseInt(days.getText().toString()));
                 editor.apply();
+                Toast.makeText(ConfigurationActivity.this.getApplicationContext(), "Zapisano", Toast.LENGTH_SHORT).show();
             }
         });
     }
