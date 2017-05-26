@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 public class MailContactActivity extends AppCompatActivity {
 
@@ -30,7 +29,6 @@ public class MailContactActivity extends AppCompatActivity {
                 mail.putExtra(Intent.EXTRA_TEXT, mess);
                 mail.setType("message/rfc822");
                 startActivity(Intent.createChooser(mail, "Send email via:"));
-                Toast.makeText(MailContactActivity.this.getApplicationContext(), "Wysłano wiadomość", Toast.LENGTH_SHORT).show();
 
             }
         });
