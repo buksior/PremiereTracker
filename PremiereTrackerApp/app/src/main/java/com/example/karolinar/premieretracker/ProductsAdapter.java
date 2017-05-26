@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -65,14 +66,19 @@ public class ProductsAdapter extends ArrayAdapter<Product> {
         star.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                context = getContext();
                 int innerPosition = (int) view.getTag();
                 ImageView innerImageView = (ImageView) view;
 
                 if(data.get(innerPosition).isFavorite()) {
                     innerImageView.setImageResource(starNotLikedResId);
                     data.get(innerPosition).setFavorite(false);
+
+                    Toast.makeText(context, "Produkt usunięto z listy obserwowanych!", Toast.LENGTH_LONG).show();
                 }
                 else {
+
                     innerImageView.setImageResource(starLikedResId);
                     Product p = data.get(innerPosition);
                     p.setFavorite(true);
@@ -81,6 +87,9 @@ public class ProductsAdapter extends ArrayAdapter<Product> {
                     productEntity.Name = p.getTitle();
                     productEntity.ProductType = p.getProductType();
                     productEntity.Premiere = p.getPremiereDate();
+
+                    Toast.makeText(context, "Produkt dodano do listy obserwowanych!", Toast.LENGTH_LONG).show();
+
                     if(p.getAuthor() == null)
                     {
                         productEntity.Creator = "";
