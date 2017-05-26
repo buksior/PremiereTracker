@@ -2,23 +2,21 @@ package com.example.karolinar.premieretracker;
 
 import android.app.Activity;
 import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.content.DialogInterface;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.CursorAdapter;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 /**
@@ -68,24 +66,47 @@ public class ObservedProductsAdapter extends ArrayAdapter<ProductEntity> {
 
         btnDelete.setTag(position);
         btnDelete.setOnClickListener(new View.OnClickListener() {
+
             @Override
-            public void onClick(View arg0) {
-                DatabaseManager databaseManager = new DatabaseManager(context);
-                int position=(Integer)arg0.getTag();
-                ProductEntity productToRemove = data.get(position);
-                try {
-                    databaseManager.RemoveProduct(productToRemove.Id);
-                    data.remove(position);
-                    notifyDataSetChanged();
-                    getContext().getContentResolver().notify();
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
+            public void onClick(final View arg0) {
+
+                context=getContext();
+
+                AlertDialog.Builder dialog = new AlertDialog.Builder(context, android.R.style.Theme_Dialog);
+                dialog.setCancelable(false);
+                dialog.setTitle("Usuwanie z listy ulubionych");
+                dialog.setMessage("Czy na pewno chcesz usunąć produkt z listy obserwowanych?" );
+                 AlertDialog.Builder ok = dialog.setPositiveButton("Tak", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        DatabaseManager databaseManager = new DatabaseManager(context);
+                        int position = (Integer) arg0.getTag();
+                        ProductEntity productToRemove = data.get(position);
+                        try {
+                            databaseManager.RemoveProduct(productToRemove.Id);
+                            data.remove(position);
+                            notifyDataSetChanged();
+                            getContext().getContentResolver().notify();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                        Toast.makeText(context, "Produkt usunięto z listy obserwowanych", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                        .setNegativeButton("Anuluj ", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+
+                final AlertDialog alert = dialog.create();
+                alert.show();
             }
         });
 
 
         return row;
     }
-
 }
