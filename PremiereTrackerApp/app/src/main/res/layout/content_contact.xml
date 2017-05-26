@@ -13,7 +13,8 @@
         android:layout_height="576dp"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp">
+        tools:layout_editor_absoluteY="8dp"
+        android:weightSum="1">
 
         <TextView
             android:id="@+id/page_title"
@@ -34,13 +35,12 @@
         <TextView
             android:id="@+id/about_text"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_weight="1"
             android:fontFamily="casual"
             android:paddingTop="20dp"
             android:text="Paulina Kwaśnicka \ntelefon: 500444333\nEmail: premieretracker@gmail.com"
@@ -49,7 +49,21 @@
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/page_title" />
+            app:layout_constraintTop_toBottomOf="@+id/page_title"
+            android:layout_weight="0.15" />
+
+        <Button
+            android:id="@+id/btnMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorBtn"
+            android:fontFamily="casual"
+            android:text="Napisz wiadomość"
+            android:textColor="@android:color/background_light"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="0dp" />
 
     </LinearLayout>
 

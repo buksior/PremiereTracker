@@ -24,5 +24,6 @@
     </string-array>
     <string name="start">START</string>
     <string name="days">Ile dni przed premierą chcesz otrzymywać powiadomienia?</string>
-    <string name="zatwierdz">Zatwierdź</string>
+    <string name="zatwierdz">Zapisz</string>
+    <string name="title_activity_mail_contact">MailContactActivity</string>
 </resources>

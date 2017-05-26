@@ -46,7 +46,11 @@
 
         <receiver android:name=".ApproachingPremiereAlarmReceiver" />
 
-        <activity android:name=".ConfigurationActivity"></activity>
+        <activity android:name=".ConfigurationActivity" />
+        <activity
+            android:name=".MailContactActivity"
+            android:label="@string/title_activity_mail_contact"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
