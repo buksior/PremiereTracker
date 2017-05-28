@@ -1,5 +1,7 @@
 package com.example.karolinar.premieretracker;
 
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -29,11 +31,11 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         final DatabaseManager manager = new DatabaseManager(this);
-
+        final Spinner spinner = (Spinner) findViewById(R.id.spinner4);
         listView = (ListView) findViewById(R.id.listView);
         listAdapter = new ProductsAdapter(this, R.layout.search_list_view, list);
         listView.setAdapter(listAdapter);
-        final Spinner spinner = (Spinner) findViewById(R.id.spinner4);
+
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.content_types_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -45,70 +47,25 @@ public class SearchActivity extends AppCompatActivity {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(SearchActivity.this.getApplicationContext(), "Wyszukiwanie...", Toast.LENGTH_SHORT).show();
+
                 // get selected radio button from radioGroup
                 int selectedId = radioGroup.getCheckedRadioButtonId();
                 // find the radiobutton by returned id
                 radioGroupButton = (RadioButton) findViewById(selectedId);
                 String radioCategory = (String) radioGroupButton.getText();
                 String selectedCategory = spinner.getSelectedItem().toString();
-                SearchService searchService = new SearchService();
-                List<Product> productEntityList = new ArrayList<>();
+
                 list.clear();
-                if(radioCategory.equals("Tytuł")){
-                     switch (selectedCategory) {
-                        case "Gry komputerowe":
-                            productEntityList = searchService.findGameByTitle(editText.getText().toString());
-                            list.addAll(productEntityList);
-                            break;
-                        case "Książki":
-                            productEntityList = searchService.findBookByTitle(editText.getText().toString());
-                            list.addAll(productEntityList);
-                            break;
-                        case "Filmy":
-                            productEntityList = searchService.findMovieByTitle(editText.getText().toString());
-                            list.addAll(productEntityList);
-                            break;
-                    }
-                }else if(radioCategory.equals("Autor")){
-                    switch (selectedCategory) {
-                        case "Gry komputerowe":
-                            productEntityList = searchService.findGameByStudio(editText.getText().toString());
-                            list.addAll(productEntityList);
-                            break;
-                        case "Książki":
-                            productEntityList = searchService.findBookByAuthor(editText.getText().toString());
-                            list.addAll(productEntityList);
-                            break;
-                        case "Filmy":
-                            productEntityList = searchService.findMovieByDirector(editText.getText().toString());
-                            list.addAll(productEntityList);
-                            break;
-                    }
-                }
-                listAdapter.notifyDataSetChanged();
 
-                if(list.size()==0){
-                    Toast.makeText(SearchActivity.this.getApplicationContext(), "Brak wyników", Toast.LENGTH_SHORT).show();
-                }
-                //fillTable();
+                String name = editText.getText().toString();
+                BackgroundTask task = new BackgroundTask(SearchActivity.this, radioCategory, selectedCategory, name );
+                task.execute();
             }
+            // }).start();
+            // }
+
+
         });
-    }
-
-    private void fillTable(){
-        list.clear();
-        GameService service = new GameService();
-        List<Game> games = service.getGamesWhichContainsTheTextInAuthor("konami");
-        for(Game g : games){
-            if(exists(g)){
-                g.setFavorite(true);
-            }
-        }
-        list.addAll(games);
-
-        //mock();
-        listAdapter.notifyDataSetChanged();
     }
 
     public boolean exists(Product p){
@@ -121,4 +78,74 @@ public class SearchActivity extends AppCompatActivity {
         DatabaseManager db = new DatabaseManager(this);
         return db.existsProduct(entity);
     }
+
+    private class BackgroundTask extends AsyncTask<Void, Void,  List<Product>> {
+        private ProgressDialog dialog;
+        private String radioCategory;
+        private String selectedCategory;
+        private String name;
+
+        public BackgroundTask(SearchActivity activity, String radioCategory, String selectedCategory, String name) {
+            this.radioCategory = radioCategory;
+            this.selectedCategory = selectedCategory;
+            this.name = name;
+            dialog = new ProgressDialog(activity,android.R.style.Theme_Dialog);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            dialog.setMessage("Wyszukiwanie...");
+            dialog.show();
+        }
+
+        @Override
+        protected void onPostExecute(List<Product> result) {
+            if (dialog.isShowing()) {
+                dialog.dismiss();
+            }
+            list.addAll(result);
+            listAdapter.notifyDataSetChanged();
+            if(list.size()==0){
+                Toast.makeText(SearchActivity.this.getApplicationContext(), "Brak wyników", Toast.LENGTH_LONG).show();
+            }
+        }
+
+        @Override
+        protected List<Product> doInBackground(Void... params) {
+
+            ArrayList<Product> list = new ArrayList<>();
+            SearchService searchService = new SearchService();
+            List<Product> productEntityList = new ArrayList<>();
+            list.clear();
+
+            if(radioCategory.equals("Tytuł")){
+                switch (selectedCategory) {
+                    case "Gry komputerowe":
+                        productEntityList = searchService.findGameByTitle(name);
+                        break;
+                    case "Książki":
+                        productEntityList = searchService.findBookByTitle(name);
+                        break;
+                    case "Filmy":
+                        productEntityList = searchService.findMovieByTitle(name);
+                        break;
+                }
+            }else if(radioCategory.equals("Autor")){
+                switch (selectedCategory) {
+                    case "Gry komputerowe":
+                        productEntityList = searchService.findGameByStudio(name);
+                        break;
+                    case "Książki":
+                        productEntityList = searchService.findBookByAuthor(name);
+                        break;
+                    case "Filmy":
+                        productEntityList = searchService.findMovieByDirector(name);
+                        break;
+                }
+            }
+            return productEntityList;
+        }
+
+    }
+
 }
