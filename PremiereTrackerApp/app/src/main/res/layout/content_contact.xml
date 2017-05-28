@@ -9,12 +9,12 @@
     tools:showIn="@layout/activity_contact">
 
     <LinearLayout
-        android:layout_width="368dp"
-        android:layout_height="576dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
+        android:weightSum="1"
         tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp"
-        android:weightSum="1">
+        tools:layout_editor_absoluteY="8dp">
 
         <TextView
             android:id="@+id/page_title"
@@ -41,6 +41,7 @@
             android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:layout_weight="0.15"
             android:fontFamily="casual"
             android:paddingTop="20dp"
             android:text="Paulina Kwaśnicka \ntelefon: 500444333\nEmail: premieretracker@gmail.com"
@@ -49,8 +50,7 @@
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/page_title"
-            android:layout_weight="0.15" />
+            app:layout_constraintTop_toBottomOf="@+id/page_title" />
 
         <Button
             android:id="@+id/btnMessage"

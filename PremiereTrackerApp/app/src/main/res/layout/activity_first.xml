@@ -6,30 +6,19 @@
     android:layout_height="match_parent"
     android:background="@android:color/background_dark"
     android:backgroundTint="@android:color/background_dark"
-    tools:context="com.example.karolinar.premieretracker.MainActivity">
+    tools:context="com.example.karolinar.premieretracker.MainActivity"
+    tools:layout_editor_absoluteY="0dp"
+    tools:layout_editor_absoluteX="0dp">
 
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@android:color/background_dark"
-        app:srcCompat="@drawable/logo"
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.example.karolinar.premieretracker.AboutActivity"
         tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp" />
+        tools:layout_editor_absoluteY="8dp">
 
-    <Button
-        android:id="@+id/buttonStart"
-        android:layout_width="344dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:background="@android:color/background_dark"
-        android:fontFamily="casual"
-        android:text="START"
-        android:textColor="@android:color/background_light"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="8dp" />
+        <include layout="@layout/content_first" />
 
+    </android.support.design.widget.CoordinatorLayout>
 </android.support.constraint.ConstraintLayout>
