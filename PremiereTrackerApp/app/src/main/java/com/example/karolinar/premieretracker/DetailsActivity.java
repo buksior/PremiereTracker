@@ -1,8 +1,10 @@
 package com.example.karolinar.premieretracker;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
+import android.view.View;
 import android.widget.TextView;
 
 import java.text.DateFormat;
@@ -12,23 +14,24 @@ public class DetailsActivity extends AppCompatActivity {
 
     TextView txtViewNameValue, txtViewCategoryValue, txtViewPremiereValue, txtViewCreatorValue, txtViewDescriptionValue;
     DatabaseManager dbManager;
+    ProductEntity productEntity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
-        TextView txtViewNameValue = (TextView) findViewById(R.id.txtViewNameValue);
-        TextView txtViewCategoryValue = (TextView) findViewById(R.id.txtViewCategoryValue);
-        TextView txtViewCreatorValue = (TextView) findViewById(R.id.txtViewCreatorValue);
-        TextView txtViewDescriptionValue = (TextView) findViewById(R.id.txtViewDescriptionValue);
-        TextView txtViewPremiereValue = (TextView) findViewById(R.id.txtViewPremiereDateValue);
+        txtViewNameValue = (TextView) findViewById(R.id.txtViewNameValue);
+        txtViewCategoryValue = (TextView) findViewById(R.id.txtViewCategoryValue);
+        txtViewCreatorValue = (TextView) findViewById(R.id.txtViewCreatorValue);
+        txtViewDescriptionValue = (TextView) findViewById(R.id.txtViewDescriptionValue);
+        txtViewPremiereValue = (TextView) findViewById(R.id.txtViewPremiereDateValue);
 
 
         txtViewDescriptionValue.setMovementMethod(new ScrollingMovementMethod());
         String productId = getIntent().getStringExtra("PRODUCT_ID");
         dbManager = new DatabaseManager(this);
-        ProductEntity productEntity = dbManager.getProductById(productId);
+        productEntity = dbManager.getProductById(productId);
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
         txtViewNameValue.setText(productEntity.Name);
@@ -53,6 +56,17 @@ public class DetailsActivity extends AppCompatActivity {
         }
 
         txtViewCreatorValue.setText(productEntity.Creator);
+        txtViewCreatorValue.setClickable(true);
+        txtViewCreatorValue.setOnClickListener(new View.OnClickListener() {
+                                                   @Override
+                                                   public void onClick(View v) {
+                                                       Intent intent = new Intent(getApplicationContext(),SearchActivity.class);
+                                                       intent.putExtra("CREATOR", txtViewCreatorValue.getText());
+                                                       intent.putExtra("CATEGORY", productEntity.ProductType.toString());
+                                                       startActivity(intent);
+                                                   }
+                                               }
+        );
         txtViewPremiereValue.setText(format.format(productEntity.Premiere));
         txtViewDescriptionValue.setText(productEntity.Description);
     }

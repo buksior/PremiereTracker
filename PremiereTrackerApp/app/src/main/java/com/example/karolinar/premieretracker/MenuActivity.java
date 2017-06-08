@@ -45,8 +45,10 @@ public class MenuActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 if (isOnline()){
-                    Intent startIntent = new Intent(getApplicationContext(),SearchActivity.class);
-                    startActivity(startIntent);
+                    Intent intent = new Intent(getApplicationContext(),SearchActivity.class);
+                    intent.putExtra("CREATOR", "");
+                    intent.putExtra("CATEGORY", "");
+                    startActivity(intent);
                 }else{
 
                     Toast.makeText(MenuActivity.this.getApplicationContext(), "Aby korzystać z wyszukiwarki musisz się połączyć z Internetem!", Toast.LENGTH_SHORT).show();

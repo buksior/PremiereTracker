@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -63,6 +62,7 @@ public class SearchActivity extends AppCompatActivity {
         editText.setThreshold(0);
 
         final Context context = this;
+
         ImageButton searchButton = (ImageButton) findViewById(R.id.imageButton);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,9 +101,30 @@ public class SearchActivity extends AppCompatActivity {
             }
             // }).start();
             // }
-
-
+            
         });
+
+        if(!getIntent().getStringExtra("CREATOR").isEmpty() | !getIntent().getStringExtra("CATEGORY").isEmpty()) {
+            String creator = getIntent().getStringExtra("CREATOR");
+            editText.setText(creator);
+            radioGroup.check(R.id.radioAuthor);
+
+            int pos = 0;
+            switch (getIntent().getStringExtra("CATEGORY")) {
+                case "Game":
+                    pos = 0;
+                    break;
+                case "Book":
+                    pos = 1;
+                    break;
+                case "Movie":
+                    pos = 2;
+                    break;
+            }
+            spinner.setSelection(pos);
+            searchButton.callOnClick();
+        }
+
     }
 
     public boolean exists(Product p){
