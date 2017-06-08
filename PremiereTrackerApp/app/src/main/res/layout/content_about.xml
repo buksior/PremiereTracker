@@ -31,7 +31,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:fontFamily="casual"
+        android:fontFamily="sans-serif"
         android:paddingTop="20dp"
         android:text="Aplikacja PremiereTracker umożliwia śledzenie informacji o premierach książek, filmów oraz gier komputerowych wybranych przez użytkownika.\n\nDane dotyczące premier są aktualizowane automatycznie.  W wyznaczonym terminie przed premierą obserwowanego produktu użytkownik zostanie powiadomiony o zbliżającym się wydarzeniu.\n\nPo premierze użytkownik będzie miał możliwość zapoznania się z ofertami sklepów oferujących dany produkt w najlepszej cenie."
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"

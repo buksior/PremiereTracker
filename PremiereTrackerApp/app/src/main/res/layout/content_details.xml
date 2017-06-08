@@ -28,7 +28,7 @@
             android:id="@+id/txtViewInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="casual"
+            android:fontFamily="sans-serif"
             android:text="Informacje o produkcie"
             android:textAlignment="center"
             android:textSize="30sp"
@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="casual"
+            android:fontFamily="sans-serif"
             android:text="Nazwa"
             android:textSize="20sp" />
 
@@ -60,7 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="casual"
+            android:fontFamily="sans-serif"
             android:paddingRight="10dp"
             android:textAlignment="center"
             android:textSize="20sp"
@@ -77,7 +77,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="casual"
+            android:fontFamily="sans-serif"
             android:text="Kategoria"
             android:textSize="20sp" />
 
@@ -92,7 +92,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="casual"
+            android:fontFamily="sans-serif"
             android:paddingRight="10dp"
             android:textAlignment="center"
             android:textSize="20sp"
@@ -109,7 +109,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="casual"
+            android:fontFamily="sans-serif"
             android:text="Data premiery"
             android:textSize="20sp" />
 
@@ -124,7 +124,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="casual"
+            android:fontFamily="sans-serif"
             android:paddingRight="10dp"
             android:textAlignment="center"
             android:textSize="20sp"
@@ -141,7 +141,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="casual"
+            android:fontFamily="sans-serif"
             android:text="Twórca"
             android:textSize="20sp" />
 
@@ -156,7 +156,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="casual"
+            android:fontFamily="sans-serif"
             android:paddingRight="10dp"
             android:textAlignment="center"
             android:textSize="20sp"
@@ -173,7 +173,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="casual"
+            android:fontFamily="sans-serif"
             android:text="Opis"
             android:textSize="20sp" />
 
@@ -190,7 +190,7 @@
             android:layout_gravity="center_vertical|right"
             android:layout_weight="1"
             android:fadeScrollbars="true"
-            android:fontFamily="casual"
+            android:fontFamily="sans-serif"
             android:isScrollContainer="true"
             android:lines="6"
             android:nestedScrollingEnabled="true"
