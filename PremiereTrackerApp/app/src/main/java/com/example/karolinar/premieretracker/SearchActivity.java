@@ -1,11 +1,15 @@
 package com.example.karolinar.premieretracker;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.util.ArraySet;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -16,13 +20,14 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class SearchActivity extends AppCompatActivity {
 
     private ArrayList<Product> list = new ArrayList<>();
     private ProductsAdapter listAdapter;
     private ListView listView;
-    private EditText editText;
+    private AutoCompleteTextView editText;
     private RadioGroup radioGroup;
     private RadioButton radioGroupButton;
 
@@ -41,8 +46,23 @@ public class SearchActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         radioGroup =(RadioGroup) findViewById(R.id.radioGroup);
-        editText = (EditText) findViewById(R.id.editText);
 
+        final String sharedPreferenceName = "RecentlySearched";
+        final SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(sharedPreferenceName, MODE_PRIVATE);
+
+        Set<String> set = new ArraySet<String>();
+        if(sharedPreferences.contains(sharedPreferenceName)){
+            set = sharedPreferences.getStringSet(sharedPreferenceName, new ArraySet<String>());
+        }
+
+        ArrayAdapter<String> adapterEditText = new SearchTextAdapter(this,
+                android.R.layout.simple_dropdown_item_1line, set.toArray(new String[set.size()]));
+        editText = (AutoCompleteTextView)
+                findViewById(R.id.editText);
+        editText.setAdapter(adapterEditText);
+        editText.setThreshold(0);
+
+        final Context context = this;
         ImageButton searchButton = (ImageButton) findViewById(R.id.imageButton);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,6 +80,24 @@ public class SearchActivity extends AppCompatActivity {
                 String name = editText.getText().toString();
                 BackgroundTask task = new BackgroundTask(SearchActivity.this, radioCategory, selectedCategory, name );
                 task.execute();
+
+                Set<String> set = new ArraySet<String>();
+                if(sharedPreferences.contains(sharedPreferenceName)){
+                    set = sharedPreferences.getStringSet(sharedPreferenceName, new ArraySet<String>());
+                }
+                if(set.size() >= 5) {
+                    set.remove(set.toArray()[0]);
+                }
+                set.add(name);
+
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putStringSet(sharedPreferenceName, set);
+                editor.apply();
+
+                ArrayAdapter<String> adapterEditText = new SearchTextAdapter(context,
+                        android.R.layout.simple_dropdown_item_1line, set.toArray(new String[set.size()]));
+
+                editText.setAdapter(adapterEditText);
             }
             // }).start();
             // }

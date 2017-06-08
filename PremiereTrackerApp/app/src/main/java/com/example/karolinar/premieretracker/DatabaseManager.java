@@ -60,8 +60,6 @@ public class DatabaseManager extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues p = new ContentValues();
 
-        //jeżeli Creator lub Decription jest null podmień na String
-
         p.put("Name", product.Name);
         p.put("Creator", product.Creator);
         p.put("Description", product.Description);
